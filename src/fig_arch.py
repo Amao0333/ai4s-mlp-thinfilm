@@ -51,12 +51,9 @@ for x in [0.265, 0.420, 0.565]:
 
 for y, lab in zip(ys[0.095], ["$d_1$ (H)", "$d_2$ (L)", "$d_3$ (H)", "$d_4$ (L)"]):
     ax.text(0.085, y, lab, ha="right", va="center", fontsize=7.6)
-ax.text(0.095, 0.292, "输入", ha="center", va="top", fontsize=7.2)
-ax.text(0.660, 0.292, "输出", ha="center", va="top", fontsize=7.2)
 
-ax.text(0.357, 0.098, "输入 4 层膜厚（归一化到 [0,1]）；输出 R(λ) 光谱：400–800 nm 共 41 点",
-        ha="center", va="center", fontsize=7.2)
-ax.text(0.357, 0.045, "参数量约 2.7×10$^4$", ha="center", va="center", fontsize=7.2)
+ax.text(0.357, 0.118, "输入 4 层膜厚，输出 41 点光谱", ha="center", va="center", fontsize=7.0)
+ax.text(0.357, 0.072, "参数量约 2.7×10$^4$", ha="center", va="center", fontsize=7.0)
 
 # ---------------- (b) 训练设置 ----------------
 panel_frame(ax, 0.735, 0.055, 0.988, 0.985)
@@ -64,15 +61,14 @@ panel_label(ax, 0.751, 0.972, "b")
 ax.text(0.862, 0.945, "训练设置", ha="center", va="center", fontsize=8.2)
 
 settings = [
-    ("损失函数", "均方误差 MSE", "model"),
-    ("优化器", "Adam（lr = 3×10$^{-3}$）", "input"),
-    ("批大小", "256", "input"),
-    ("训练轮次", "最多 4000 轮", "output"),
-    ("早停", "验证集耐心 400 轮", "output"),
+    ("损失：MSE", "model"),
+    ("Adam  3×10$^{-3}$", "input"),
+    ("批大小 256", "input"),
+    ("最多 4000 轮", "output"),
+    ("早停 400 轮", "output"),
 ]
-for i, (name, val, kind) in enumerate(settings):
-    yy = 0.855 - 0.150 * i
-    ax.text(0.757, yy, name, ha="left", va="center", fontsize=7.2, color="#404040")
-    rbox(ax, 0.757, yy - 0.118, 0.220, 0.076, val, kind, fs=7.0)
+for i, (val, kind) in enumerate(settings):
+    yy = 0.845 - 0.148 * i
+    rbox(ax, 0.752, yy - 0.075, 0.230, 0.085, val, kind, fs=6.8)
 
 save(fig, "fig3_arch.png")

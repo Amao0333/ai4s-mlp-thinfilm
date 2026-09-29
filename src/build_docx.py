@@ -12,6 +12,7 @@ import sys
 from pathlib import Path
 
 from docx import Document
+from docx.enum.section import WD_SECTION
 from docx.enum.table import WD_TABLE_ALIGNMENT
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.shared import Cm, Pt
@@ -21,7 +22,18 @@ import params as P
 DOCX_OUT = P.ROOT / "paper" / "AI4S论文-MLP多层介质薄膜光谱预测与辅助设计.docx"
 PDF_OUT = DOCX_OUT.with_suffix(".pdf")
 CENTER = WD_ALIGN_PARAGRAPH.CENTER
-FIGURE_WIDTH_CM = 9.3
+FIGURE_WIDTH_CM = 11.0
+FIGURE_MAX_HEIGHT_CM = 6.0
+
+
+def set_two_columns(section, space_twips=280):
+    """把某一节设为双栏（用于参考文献）。"""
+    from docx.oxml.ns import qn
+    sectPr = section._sectPr
+    for old_cols in sectPr.findall(qn("w:cols")):
+        sectPr.remove(old_cols)
+    cols = sectPr.makeelement(qn("w:cols"), {qn("w:num"): "2", qn("w:space"): str(space_twips)})
+    sectPr.append(cols)
 
 
 def find_paragraph(doc, prefix):
@@ -56,9 +68,10 @@ def body_paragraph(doc, text, indent=True, size=10, align=WD_ALIGN_PARAGRAPH.JUS
     p = doc.add_paragraph()
     p.alignment = align
     pf = p.paragraph_format
+    pf.line_spacing = 1.12          # 模板为 1.179，略微收紧以控制在 6 页内
     if indent:
         pf.first_line_indent = Pt(2 * size)
-    pf.space_after = Pt(2)
+    pf.space_after = Pt(1.5)
     p.add_run(text).font.size = Pt(size)
     return p
 
@@ -67,8 +80,8 @@ def caption_paragraph(doc, text, size=8.5, keep=False):
     """图题/表题：居中，'**图 N**' 加粗。"""
     p = doc.add_paragraph()
     p.alignment = CENTER
-    p.paragraph_format.space_before = Pt(2)
-    p.paragraph_format.space_after = Pt(3)
+    p.paragraph_format.space_before = Pt(1)
+    p.paragraph_format.space_after = Pt(2)
     if keep:
         p.paragraph_format.keep_with_next = True
     m = re.match(r"^(\*\*[^*]+\*\*)(.*)$", text)
@@ -82,14 +95,21 @@ def caption_paragraph(doc, text, size=8.5, keep=False):
 
 
 def figure_block(doc, name):
-    """图片占位段落；图题随后由 caption_run 追加，保证图文不分离。"""
+    """图片占位段落；图题随后由 caption_add 追加，保证图文不分离。
+
+    宽度取 min(默认宽度, 高度上限 × 宽高比)，使过高的图自动缩小。
+    """
+    from PIL import Image
+    with Image.open(P.FIG_DIR / name) as im:
+        aspect = im.width / im.height
+    width = min(FIGURE_WIDTH_CM, FIGURE_MAX_HEIGHT_CM * aspect)
     p = doc.add_paragraph()
     p.alignment = CENTER
-    p.paragraph_format.space_before = Pt(4)
-    p.paragraph_format.space_after = Pt(2)
+    p.paragraph_format.space_before = Pt(2)
+    p.paragraph_format.space_after = Pt(0)
     p.paragraph_format.keep_together = True
     p.paragraph_format.keep_with_next = True
-    p.add_run().add_picture(str(P.FIG_DIR / name), width=Cm(FIGURE_WIDTH_CM))
+    p.add_run().add_picture(str(P.FIG_DIR / name), width=Cm(width))
     return p
 
 
@@ -134,7 +154,7 @@ def add_top5_table(doc):
             cell = t.cell(i, j)
             cell.text = ""
             run = cell.paragraphs[0].add_run(v)
-            run.font.size = Pt(8)
+            run.font.size = Pt(7.5)
             cell.paragraphs[0].alignment = CENTER
     return t
 
@@ -146,9 +166,25 @@ def render_markdown(doc, md_text):
     in_refs = False
     pending_fig = None
 
+    def join_lines(parts):
+        """按 Markdown 软换行拼接，并在中英/数字边界补一个空格。"""
+        out = ""
+        latin = set("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz%×°")
+        for part in parts:
+            part = part.strip()
+            if not part:
+                continue
+            if out:
+                a, b = out[-1], part[0]
+                need = (a in latin and "一" <= b <= "鿿") or                        ("一" <= a <= "鿿" and b in latin)
+                if need:
+                    out += " "
+            out += part
+        return out
+
     def flush():
         if buf:
-            body_paragraph(doc, "".join(x.strip() for x in buf))
+            body_paragraph(doc, join_lines(buf))
             buf.clear()
 
     while i < len(lines):
@@ -186,14 +222,20 @@ def render_markdown(doc, md_text):
             continue
         if s.startswith("### "):
             flush()
-            doc.add_heading(s[4:], level=2)
+            h = doc.add_heading(s[4:], level=2)
+            h.paragraph_format.space_before = Pt(5)
+            h.paragraph_format.space_after = Pt(1)
             i += 1
             continue
         if s.startswith("## "):
             flush()
             title = s[3:]
             in_refs = title.startswith("参考文献")
-            doc.add_heading(title, level=1)
+            if in_refs:
+                set_two_columns(doc.add_section(WD_SECTION.CONTINUOUS))
+            h = doc.add_heading(title, level=1)
+            h.paragraph_format.space_before = Pt(6)
+            h.paragraph_format.space_after = Pt(2)
             i += 1
             continue
         if s.startswith("**关键词**"):
@@ -204,15 +246,20 @@ def render_markdown(doc, md_text):
         if in_refs and re.match(r"^\[\d+\]", s):
             flush()
             p = doc.add_paragraph()
-            p.paragraph_format.left_indent = Pt(18)
-            p.paragraph_format.first_line_indent = Pt(-18)
-            p.paragraph_format.space_after = Pt(0.5)
-            p.add_run(s).font.size = Pt(8.5)
+            p.paragraph_format.left_indent = Pt(15)
+            p.paragraph_format.first_line_indent = Pt(-15)
+            p.paragraph_format.space_after = Pt(0.2)
+            p.add_run(s).font.size = Pt(7.5)
             i += 1
             continue
-        if line.startswith("    ") or s.startswith("https://"):
+        if line.startswith("    "):
             flush()
             body_paragraph(doc, s, indent=False, size=9, align=CENTER)
+            i += 1
+            continue
+        if s.startswith("https://"):
+            flush()
+            body_paragraph(doc, s, indent=False, size=9.5, align=WD_ALIGN_PARAGRAPH.LEFT)
             i += 1
             continue
         buf.append(s)

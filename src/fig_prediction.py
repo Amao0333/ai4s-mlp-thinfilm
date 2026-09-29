@@ -18,7 +18,7 @@ order = np.argsort(ps_mae)
 picks = [order[int(0.10 * len(order))], order[int(0.50 * len(order))], order[int(0.97 * len(order))]]
 labels = ["误差较小", "误差居中", "误差较大"]
 
-fig, axes = plt.subplots(2, 2, figsize=(7.2, 5.0))
+fig, axes = plt.subplots(2, 2, figsize=(7.6, 4.1))
 for li, (ax, k, lab) in enumerate(zip(axes.ravel()[:3], picks, labels)):
     ax.plot(wl, true[k], color=C_TMM, label="TMM 真值")
     ax.plot(wl, pred[k], color=C_MLP, ls="--", label="MLP 预测")
@@ -28,7 +28,7 @@ for li, (ax, k, lab) in enumerate(zip(axes.ravel()[:3], picks, labels)):
     ax.set_ylim(-0.02, 1.0)
     e = ps_mae[k]
     ax.set_title(f"{lab}  MAE = {e:.4f}")
-    panel_letter(ax, "abc"[li])
+    panel_letter(ax, "abc"[li], x=-0.18)
     ax.legend(loc="upper right")
 
 ax = axes.ravel()[3]
@@ -41,8 +41,10 @@ r = float(np.corrcoef(pred[:, I_T], true[:, I_T])[0, 1])
 mae_t = float(np.mean(np.abs(pred[:, I_T] - true[:, I_T])))
 ax.set_xlabel(f"TMM 真值 R({int(P.LAMBDA_TARGET)} nm)")
 ax.set_ylabel(f"MLP 预测 R({int(P.LAMBDA_TARGET)} nm)")
-ax.set_title(f"目标波长处散点  $r$ = {r:.4f}, MAE = {mae_t:.4f}")
-panel_letter(ax, "d")
+ax.set_title("目标波长处散点校验")
+ax.text(0.04, 0.96, f"$r$ = {r:.4f}", transform=ax.transAxes, va="top", fontsize=7.0)
+ax.text(0.04, 0.88, f"MAE = {mae_t:.4f}", transform=ax.transAxes, va="top", fontsize=7.0)
+panel_letter(ax, "d", x=-0.18)
 
 fig.tight_layout()
 save(fig, "fig5_prediction.png")

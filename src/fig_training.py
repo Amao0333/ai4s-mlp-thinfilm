@@ -35,7 +35,8 @@ ax.set_xlabel("训练轮次 epoch")
 ax.set_ylabel("均方误差 MSE")
 ax.set_title("收敛段放大")
 panel_letter(ax, "b")
-ax.legend()
+ax.legend(loc="upper right", frameon=True, framealpha=0.92,
+          edgecolor="#cccccc", fontsize=6.8)
 
 fig.tight_layout()
 save(fig, "fig4_training.png")

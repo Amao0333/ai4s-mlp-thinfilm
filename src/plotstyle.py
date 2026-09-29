@@ -36,7 +36,25 @@ C_GREEN = "#2e7d32"
 C_ORANGE = "#e07b00"
 
 
-def save(fig, name):
+TEXT_SCALE = 1.35      # 图内文字统一放大系数：论文中图宽约 12 cm，
+                       # 画布 7.2 in 缩放约 0.66，放大后实际字号约 7 pt，保证可读
+
+
+def scale_text(fig, factor=TEXT_SCALE):
+    """把图内所有文字（标题/坐标轴/刻度/图例/标注）统一放大，保证缩放后仍可读。"""
+    if factor == 1.0:
+        return fig
+    for obj in fig.findobj():
+        if hasattr(obj, "get_fontsize") and hasattr(obj, "set_fontsize"):
+            try:
+                obj.set_fontsize(obj.get_fontsize() * factor)
+            except Exception:
+                pass
+    return fig
+
+
+def save(fig, name, text_scale=TEXT_SCALE):
+    scale_text(fig, text_scale)
     path = P.FIG_DIR / name
     fig.savefig(path)
     plt.close(fig)
