@@ -37,21 +37,33 @@ ax.text(0.03, 0.06, f"膜厚 = ({d_txt}) nm", transform=ax.transAxes, fontsize=7
 ax.legend(loc="upper left", fontsize=7.4)
 
 ax = axes[1]
-dR = np.abs(np.diff(true, axis=1)).mean(axis=1)
-ax.scatter(dR, ps_mse, s=8, alpha=0.5, color="#8fa8bf", edgecolors="none")
-ax.scatter([dR[k]], [ps_mse[k]], s=40, facecolors="none", edgecolors=C_MLP,
-           linewidths=1.3, label="最差样本")
-r = pearsonr(dR, ps_mse)
-z = np.polyfit(dR, ps_mse, 1)
-xs = np.linspace(dR.min(), dR.max(), 20)
-ax.plot(xs, np.polyval(z, xs), color=C_TMM, lw=1.2, ls="--", label="线性拟合")
-ax.set_xlabel("光谱平均斜率 |ΔR| / 10 nm")
+cv = np.load(P.RES_DIR / "coverage.npz")
+d10, mse_cv = cv["d10"], cv["ps_mse"]
+ax.scatter(d10, mse_cv, s=8, alpha=0.45, color="#8fa8bf", edgecolors="none",
+           label="500 个测试样本")
+ax.scatter([d10[k]], [mse_cv[k]], s=40, facecolors="none", edgecolors=C_MLP,
+           linewidths=1.3, label="最大误差样本")
+r = pearsonr(d10, mse_cv)
+co = json.loads((P.RES_DIR / "coverage.json").read_text(encoding="utf-8"))
+q = np.quantile(d10, [0, 0.25, 0.5, 0.75, 1.0])
+centers, med = [], []
+for i in range(4):
+    m = (d10 >= q[i]) & (d10 <= q[i + 1] if i == 3 else d10 < q[i + 1])
+    centers.append(float(np.median(d10[m])))
+    med.append(float(np.mean(mse_cv[m])))
+ax.plot(centers, med, "o-", color=C_ORANGE, lw=1.4, ms=4, label="四分位分箱均值")
+z = np.polyfit(d10, mse_cv, 1)
+xs = np.linspace(d10.min(), d10.max(), 20)
+ax.plot(xs, np.polyval(z, xs), color=C_TMM, lw=1.1, ls="--", label="线性拟合")
+ax.set_xlabel("第 10 近邻距离（归一化膜厚空间）")
 ax.set_ylabel("逐样本 MSE")
-ax.text(0.03, 0.95, f"Pearson r = {r.statistic:.3f}\n(p = {r.pvalue:.1e})",
-        transform=ax.transAxes, va="top", fontsize=7.6)
-ax.legend(loc="lower right", fontsize=7.2)
-ax.set_title("误差随光谱陡峭度上升", fontsize=9.5)
+ratio = co["bins_by_d5"][3]["mse_mean"] / co["bins_by_d5"][0]["mse_mean"] - 1
+ax.text(0.03, 0.95, f"Pearson r = {r.statistic:.3f}，$r^2$ = {r.statistic ** 2:.3f}",
+        transform=ax.transAxes, va="top", fontsize=7.4)
+ax.text(0.03, 0.86, f"稀疏组 MSE 比密集组高 {ratio:.0%}",
+        transform=ax.transAxes, va="top", fontsize=7.4)
+ax.legend(loc="lower right", fontsize=7.0)
+ax.set_title("误差随局部采样稀疏度上升", fontsize=9.5)
 panel_letter(ax, "b")
-
 fig.tight_layout()
 save(fig, "fig8_failure.png")

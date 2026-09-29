@@ -82,6 +82,32 @@ from scipy.stats import spearmanr
 rho = float(spearmanr(z["r_mlp_target"], z["r_true_target"]).statistic)
 check("候选池 Spearman ρ", rho, ds["ranking"]["spearman_rho"], f"{ds['ranking']['spearman_rho']:.4f}")
 
+# 6b) 物理上限的网格穷举确认
+pbg = json.loads((P.RES_DIR / "physical_bound_grid.json").read_text(encoding="utf-8"))
+check("网格穷举上限与解析上限之差", float(pbg["difference_vs_optimizer"]), 0.0,
+      "8×10⁻⁶", tol=1e-5)
+pf = json.loads((P.RES_DIR / "phase_family.json").read_text(encoding="utf-8"))
+check("π 等价家族内反射率极差", float(pf["R_spread_within_family"]), 0.0, "0.0000", tol=1e-12)
+
+# 6c) 覆盖度归因
+cov = json.loads((P.RES_DIR / "coverage.json").read_text(encoding="utf-8"))
+from scipy.stats import pearsonr as _pr
+cvz = np.load(P.RES_DIR / "coverage.npz")
+rho_d10 = float(_pr(cvz["d10"], cvz["ps_mse"]).statistic)
+check("第 10 近邻距离与误差的 r", rho_d10,
+      cov["correlations_with_per_sample_mse"]["d10"]["pearson_r"], "0.370", tol=1e-6)
+
+# 6d) 加权损失对照
+wlj = json.loads((P.RES_DIR / "weighted_loss.json").read_text(encoding="utf-8"))
+from model import MLP as _MLP, scale_d as _sd
+mw = _MLP(P.HIDDEN)
+mw.load_state_dict(torch.load(P.RES_DIR / "model_weighted.pt", weights_only=False)["state"])
+mw.eval()
+with torch.no_grad():
+    predw = mw(torch.tensor(_sd(D[idx_test]), dtype=torch.float32)).numpy()
+check("加权模型目标波长 MAE", float(np.mean(np.abs(predw[:, I_T] - true[:, I_T]))),
+      wlj["test_set"]["weighted"]["mae_at_target"], "0.00597", tol=1e-6)
+
 # 7) 图件与论文文件齐备
 FIG = ["fig1_workflow.png", "fig2_model_data.png", "fig3_arch.png", "fig4_training.png",
        "fig5_prediction.png", "fig6_datasize.png", "fig7_design.png", "fig8_failure.png"]

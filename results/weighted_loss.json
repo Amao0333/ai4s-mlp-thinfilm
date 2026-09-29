@@ -1,0 +1,41 @@
+{
+  "design": {
+    "weight_at_target": 10.0,
+    "n_train": 4000,
+    "seed": 303003,
+    "epochs_run": 3160,
+    "wall_seconds": 204.42228490000707
+  },
+  "test_set": {
+    "base": {
+      "overall_mae": 0.006381214611896899,
+      "mae_at_target": 0.007857097657249358,
+      "max_abs_at_target": 0.04196243038396608
+    },
+    "weighted": {
+      "overall_mae": 0.006821087430647334,
+      "mae_at_target": 0.005972991824140829,
+      "max_abs_at_target": 0.03134930348248077
+    }
+  },
+  "candidate_pool": {
+    "base": {
+      "spearman_rho": 0.9982868787138534,
+      "mae_at_target": 0.007772173981215977,
+      "top1_is_tmm_best": true,
+      "top10_recall": 0.6,
+      "best_of_mlp_top10_tmm": 0.6578608349750397,
+      "R_pool_best": 0.6578608349750397,
+      "n_pred_above_bound": 4
+    },
+    "weighted": {
+      "spearman_rho": 0.9988843020498397,
+      "mae_at_target": 0.006088947258157713,
+      "top1_is_tmm_best": false,
+      "top10_recall": 0.6,
+      "best_of_mlp_top10_tmm": 0.6578608349750397,
+      "R_pool_best": 0.6578608349750397,
+      "n_pred_above_bound": 5
+    }
+  }
+}

@@ -51,7 +51,13 @@ python benchmark.py         # 10. 耗时基准
 python enrichment_experiment.py    # 11. 局部加密对照实验
 python tolerance.py         # 12. 公差敏感性
 python make_all_figures.py  # 13. 生成论文与报告全部图件（figs/）
-python check_consistency.py # 14. 论文数值与结果文件一致性核查
+python bound_gridsearch.py  # 物理上限网格穷举确认
+python phase_family.py      # π 相位等价解家族
+python sensitivity.py       # 采样充分性与膜厚灵敏度检验
+python coverage.py          # 局部采样密度归因
+python weighted_loss.py     # 目标波长加权损失对照
+python ranking_limit.py     # 排名分辨率极限
+python check_consistency.py # 论文数值与结果文件一致性核查（13 项）
 ```
 
 一键运行：`python reproduce_all.py`。
@@ -91,6 +97,9 @@ ai4s-mlp-thinfilm/
 | 最终设计 | MLP 选出的第 1 名即全批 TMM 最优；R_TMM(480 nm) = 0.6579，达物理上限的 99.8% |
 | 补充实验 | 高反射区局部加密后该区域 MSE 降 61.1%，标准测试集升 16.9% |
 | 公差 | 整体厚度偏差 ±1% 时 R 仅降 0.0010；逐层 σ = 2 nm 时平均降 0.0018 |
+| 物理上限确认 | 2.83×10⁶ 点网格穷举与解析解相差 8×10⁻⁶；最优解为 4 个 π 相位等价解 |
+| 失败机理 | 局部采样密度（第 10 近邻距离 r = 0.370）；非混叠、非膜厚灵敏度 |
+| 加权损失 | 目标波长 MAE 降 24%，整体仅升 7%，但 Top1 命中不稳定 |
 
 ## 复现的确定性说明
 

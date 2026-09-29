@@ -121,6 +121,42 @@ def collect():
     v["ENRICH_DELTA"] = f"{en['comparison']['high_R_test']['relative_change'] * 100:+.1f}%"
     v["ENRICH_STD_DELTA"] = f"{en['comparison']['standard_test']['relative_change'] * 100:+.1f}%"
 
+    pbg = load("physical_bound_grid.json")
+    v["GRID_N"] = pbg["grid_points_per_layer"]
+    v["GRID_POINTS"] = f"{pbg['total_grid_evaluations'] / 1e6:.2f}×10⁶"
+    v["GRID_DIFF"] = sci(pbg["difference_vs_optimizer"])
+    pf = load("phase_family.json")
+    v["FAMILY_N"] = len(pf["family_members"])
+    v["FAMILY_SPREAD"] = num(pf["R_spread_within_family"], 4)
+
+    rl = load("ranking_limit.json")
+    v["SPAN_1PCT"] = num(rl["top_tail_spread"]["top1pct_span"], 4)
+    v["SPAN_01PCT"] = num(rl["top_tail_spread"]["top0p1pct_span"], 4)
+
+    wl = load("weighted_loss.json")
+    v["WL_MAE"] = num(wl["test_set"]["weighted"]["mae_at_target"], 5)
+    v["WL_GAIN"] = pct(1 - wl["test_set"]["weighted"]["mae_at_target"] /
+                       wl["test_set"]["base"]["mae_at_target"], 1)
+    v["WL_SPEARMAN"] = num(wl["candidate_pool"]["weighted"]["spearman_rho"], 4)
+
+    sens = load("sensitivity.json")
+    sc = sens["sampling_check"]
+    v["FRINGE_PERIOD"] = num(sc["fringe_period_nm"]["median"], 0)
+    v["FRINGE_PERIOD_MIN"] = num(sc["fringe_period_nm"]["min"], 0)
+    v["NYQUIST"] = num(sc["nyquist_requirement_nm"], 0)
+    v["OVERSAMPLING"] = num(sc["oversampling_factor"], 0)
+    scorr = sens["correlations_with_per_sample_mse"]
+    v["CORR_GRAD"] = f"{scorr['abs_grad_max']['pearson_r']:.3f}"
+    v["CORR_FRINGE_R2"] = num(scorr["mean_abs_dR_dlambda"]["pearson_r2"], 3)
+
+    co = load("coverage.json")
+    cc = co["correlations_with_per_sample_mse"]["d10"]
+    v["CORR_D10"] = num(cc["pearson_r"], 3)
+    v["CORR_D10_R2"] = num(cc["pearson_r2"], 3)
+    v["SPARSE_GAP"] = pct(co["bins_by_d5"][3]["mse_mean"] /
+                          co["bins_by_d5"][0]["mse_mean"] - 1, 0)
+    v["UNEXPLAINED"] = pct(1 - cc["pearson_r2"], 0)
+
     tl = load("tolerance.json")
     scale = {r["eps"]: r for r in tl["systematic_scale"]}
     mc = {r["sigma_nm"]: r for r in tl["monte_carlo_per_layer"]}

@@ -1,0 +1,53 @@
+{
+  "sampling_check": {
+    "wavelength_step_nm": 10.0,
+    "fringe_period_nm": {
+      "min": 120.0,
+      "median": 180.0,
+      "mean": 206.5503875968992,
+      "max": 350.0,
+      "n_samples_with_2_extrema": 258
+    },
+    "nyquist_requirement_nm": 60.0,
+    "oversampling_factor": 6.0,
+    "conclusion": "10 nm 步长比 Nyquist 要求细，不存在输出欠采样"
+  },
+  "correlations_with_per_sample_mse": {
+    "abs_grad_max": {
+      "pearson_r": -0.078242963051355,
+      "pearson_r2": 0.006121961267055704,
+      "pearson_p": 0.0804870219428265,
+      "spearman_rho": -0.07674673898695594,
+      "n": 500
+    },
+    "grad_norm": {
+      "pearson_r": -0.03363059305699558,
+      "pearson_r2": 0.0011310167893652395,
+      "pearson_p": 0.4530541640881072,
+      "spearman_rho": -0.02864603458413834,
+      "n": 500
+    },
+    "mean_abs_dR_dlambda": {
+      "pearson_r": 0.20660073224799516,
+      "pearson_r2": 0.042683862565407786,
+      "pearson_p": 3.1848628246823977e-06,
+      "spearman_rho": 0.23184265537062146,
+      "n": 500
+    },
+    "total_optical_thickness": {
+      "pearson_r": 0.14845906888127117,
+      "pearson_r2": 0.022040095133094018,
+      "pearson_p": 0.000869062682252132,
+      "spearman_rho": 0.2250324841299365,
+      "n": 500
+    },
+    "fringe_period_nm": {
+      "pearson_r": -0.1956451290993902,
+      "pearson_r2": 0.03827701654031705,
+      "pearson_p": 0.0015894321328094937,
+      "spearman_rho": -0.15391746681882845,
+      "n": 258
+    }
+  },
+  "gradient_units": "R 的绝对值变化 / nm"
+}
