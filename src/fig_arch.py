@@ -24,9 +24,9 @@ ax.add_patch(FancyBboxPatch((0.030, 0.205), 0.655, 0.700,
                             zorder=0))
 ax.text(0.640, 0.855, "MLP 代理模型", ha="right", va="center", fontsize=7.6, color="#9c6b23")
 
-cols = [(0.095, 4, "输入层", "input"), (0.265, 10, "128", "model"),
-        (0.420, 10, "128", "model"), (0.565, 8, "64", "model"),
-        (0.660, 10, "41", "output")]
+cols = [(0.205, 4, "输入层", "input"), (0.345, 10, "128", "model"),
+        (0.465, 10, "128", "model"), (0.580, 8, "64", "model"),
+        (0.668, 10, "41", "output")]
 ys = {}
 y0, y1 = 0.330, 0.700
 
@@ -39,21 +39,18 @@ for x, n, lab, kind in cols:
                             linewidth=1.0, zorder=4))
     ax.text(x, 0.730, lab, ha="center", va="bottom", fontsize=8.0, zorder=5)
 
-for x1, x2 in [(0.095, 0.265), (0.265, 0.420), (0.420, 0.565), (0.565, 0.660)]:
+for x1, x2 in [(0.205, 0.345), (0.345, 0.465), (0.465, 0.580), (0.580, 0.668)]:
     for ya in ys[x1]:
         for yb in ys[x2]:
-            ax.plot([x1 + 0.0145, x2 - 0.0145], [ya, yb], color="#b8c9da", lw=0.10,
-                    alpha=0.55, zorder=1)
+            ax.plot([x1 + 0.0145, x2 - 0.0145], [ya, yb], color="black", lw=0.22,
+                    alpha=0.35, zorder=1)
 
-for x in [0.265, 0.420, 0.565]:
-    ax.text(x + 0.040, 0.515, "ReLU", ha="left", va="center", fontsize=7.0,
-            color="#c00000", rotation=90, zorder=5)
 
-for y, lab in zip(ys[0.095], ["$d_1$ (H)", "$d_2$ (L)", "$d_3$ (H)", "$d_4$ (L)"]):
-    ax.text(0.085, y, lab, ha="right", va="center", fontsize=7.6)
+for y, lab in zip(ys[0.205], ["$d_1$ (H)", "$d_2$ (L)", "$d_3$ (H)", "$d_4$ (L)"]):
+    ax.text(0.192, y, lab, ha="right", va="center", fontsize=7.6)
 
-ax.text(0.357, 0.150, "输入 4 层膜厚，输出 41 点光谱", ha="center", va="center", fontsize=7.0)
-ax.text(0.357, 0.080, "参数量约 2.7×10$^4$", ha="center", va="center", fontsize=7.0)
+ax.text(0.357, 0.150, "输入 4 层膜厚，输出 41 点光谱，隐藏层激活 ReLU", ha="center", va="center", fontsize=7.0)
+ax.text(0.357, 0.080, "参数量约 2.7×10$^4$，全连接", ha="center", va="center", fontsize=7.0)
 
 # ---------------- (b) 训练设置 ----------------
 panel_frame(ax, 0.735, 0.030, 0.988, 0.985)
