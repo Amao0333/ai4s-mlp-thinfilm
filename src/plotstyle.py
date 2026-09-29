@@ -11,10 +11,10 @@ import params as P
 plt.rcParams.update({
     "font.sans-serif": ["Microsoft YaHei", "SimHei"],
     "axes.unicode_minus": False,
-    "font.size": 9,
-    "axes.labelsize": 9,
-    "axes.titlesize": 10,
-    "legend.fontsize": 8,
+    "font.size": 8,
+    "axes.labelsize": 8.5,
+    "axes.titlesize": 9,
+    "legend.fontsize": 7.5,
     "xtick.labelsize": 8,
     "ytick.labelsize": 8,
     "figure.dpi": 120,
@@ -36,8 +36,9 @@ C_GREEN = "#2e7d32"
 C_ORANGE = "#e07b00"
 
 
-TEXT_SCALE = 1.35      # 图内文字统一放大系数：论文中图宽约 12 cm，
-                       # 画布 7.2 in 缩放约 0.66，放大后实际字号约 7 pt，保证可读
+# 作图原则：画布尺寸 = 论文中的最终印刷尺寸（约 13.5 cm 宽），1:1 输出。
+# 因此不再需要任何文字放大，图内字号即最终字号（7–9.5 pt）。
+TEXT_SCALE = 1.0
 
 
 def scale_text(fig, factor=TEXT_SCALE):
@@ -114,3 +115,11 @@ def panel_letter(ax, s, x=-0.14, y=1.02):
     ax.text(x, y, s, transform=ax.transAxes, ha="left", va="bottom", fontsize=8.5,
             color="white", fontweight="bold", zorder=8,
             bbox=dict(boxstyle="square,pad=0.26", facecolor=C_LABEL, edgecolor="none"))
+
+
+def legend_above(ax, ncol=2, fs=7.0, y=1.02, **kw):
+    """把图例放到坐标区上方，彻底避免与数据重叠。"""
+    leg = ax.legend(loc="lower center", bbox_to_anchor=(0.5, y), ncol=ncol,
+                    fontsize=fs, frameon=False, handlelength=1.6,
+                    columnspacing=1.2, handletextpad=0.5, borderaxespad=0.0, **kw)
+    return leg

@@ -8,7 +8,7 @@ from matplotlib.patches import Circle, FancyBboxPatch
 import params as P
 from plotstyle import PALETTE, panel_frame, panel_label, rbox, save
 
-fig, ax = plt.subplots(figsize=(7.2, 3.3))
+fig, ax = plt.subplots(figsize=(5.33, 2.44))
 ax.set_xlim(0, 1)
 ax.set_ylim(0, 1)
 ax.axis("off")

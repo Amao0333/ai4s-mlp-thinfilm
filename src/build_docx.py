@@ -22,8 +22,7 @@ import params as P
 DOCX_OUT = P.ROOT / "paper" / "AI4S论文-MLP多层介质薄膜光谱预测与辅助设计.docx"
 PDF_OUT = DOCX_OUT.with_suffix(".pdf")
 CENTER = WD_ALIGN_PARAGRAPH.CENTER
-FIGURE_WIDTH_CM = 10.5
-FIGURE_MAX_HEIGHT_CM = 6.0
+FIG_DPI = 300          # 图件保存 DPI，用于按原始尺寸插入
 
 
 def set_two_columns(section, space_twips=280):
@@ -95,14 +94,10 @@ def caption_paragraph(doc, text, size=8.5, keep=False):
 
 
 def figure_block(doc, name):
-    """图片占位段落；图题随后由 caption_add 追加，保证图文不分离。
-
-    宽度取 min(默认宽度, 高度上限 × 宽高比)，使过高的图自动缩小。
-    """
+    """按图片原始尺寸 1:1 插入，图内字号即设计字号；图题与本段绑定。"""
     from PIL import Image
     with Image.open(P.FIG_DIR / name) as im:
-        aspect = im.width / im.height
-    width = min(FIGURE_WIDTH_CM, FIGURE_MAX_HEIGHT_CM * aspect)
+        width = im.width / FIG_DPI * 2.54      # 设计时的物理宽度（cm）
     p = doc.add_paragraph()
     p.alignment = CENTER
     p.paragraph_format.space_before = Pt(2)

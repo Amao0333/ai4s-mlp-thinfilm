@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import params as P
 from plotstyle import arrow, panel_frame, panel_label, rbox, save
 
-fig, ax = plt.subplots(figsize=(7.2, 3.4))
+fig, ax = plt.subplots(figsize=(5.33, 2.52))
 ax.set_xlim(0, 1)
 ax.set_ylim(0, 1)
 ax.axis("off")

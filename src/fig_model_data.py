@@ -25,7 +25,7 @@ def letter(ax, s, x=-0.20, y=1.02):
             bbox=dict(boxstyle="square,pad=0.26", facecolor=C_LABEL, edgecolor="none"))
 
 
-fig = plt.figure(figsize=(7.2, 2.9))
+fig = plt.figure(figsize=(5.33, 2.15))
 gs = fig.add_gridspec(1, 3, width_ratios=[0.86, 1.20, 1.00], wspace=0.46)
 
 # ---------------- (a) 膜系结构 ----------------
