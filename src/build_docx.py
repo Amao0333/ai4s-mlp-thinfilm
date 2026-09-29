@@ -12,10 +12,14 @@ import sys
 from pathlib import Path
 
 from docx import Document
+from docx.oxml import OxmlElement
+from docx.oxml.ns import qn
 from docx.enum.section import WD_SECTION
 from docx.enum.table import WD_TABLE_ALIGNMENT
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.shared import Cm, Pt
+
+from docx_richtext import REF_HEAD, add_bookmark, add_rich_runs
 
 import params as P
 
@@ -71,7 +75,7 @@ def body_paragraph(doc, text, indent=True, size=10, align=WD_ALIGN_PARAGRAPH.JUS
     if indent:
         pf.first_line_indent = Pt(2 * size)
     pf.space_after = Pt(1.0)
-    p.add_run(text).font.size = Pt(size)
+    add_rich_runs(p, text, Pt(size))
     return p
 
 
@@ -87,9 +91,8 @@ def caption_paragraph(doc, text, size=8.5, keep=False):
     head, tail = (m.group(1).strip("*"), m.group(2)) if m else ("", text)
     r1 = p.add_run(head)
     r1.bold = True
-    r2 = p.add_run(tail)
-    for r in (r1, r2):
-        r.font.size = Pt(size)
+    r1.font.size = Pt(size)
+    add_rich_runs(p, tail, Pt(size))
     return p
 
 
@@ -117,9 +120,8 @@ def add_caption_into(par, text, size=8.5):
     head, tail = (m.group(1).strip("*"), m.group(2)) if m else ("", text)
     r1 = par.add_run(head)
     r1.bold = True
-    r2 = par.add_run(tail)
-    for r in (r1, r2):
-        r.font.size = Pt(size)
+    r1.font.size = Pt(size)
+    add_rich_runs(par, tail, Pt(size))     # 图题同样支持下标与引用
     return par
 
 
@@ -289,13 +291,23 @@ def render_markdown(doc, md_text):
             body_paragraph(doc, s.replace("**", ""), indent=False)
             i += 1
             continue
-        if in_refs and re.match(r"^\[\d+\]", s):
+        if in_refs and REF_HEAD.match(s):
             flush()
             p = doc.add_paragraph()
             p.paragraph_format.left_indent = Pt(15)
             p.paragraph_format.first_line_indent = Pt(-15)
             p.paragraph_format.space_after = Pt(0.2)
-            p.add_run(s).font.size = Pt(7.0)
+            num = REF_HEAD.match(s).group(1)
+            body = REF_HEAD.sub("", s)
+            r1 = p.add_run("[")
+            r2 = p.add_run(num)
+            r3 = p.add_run("] ")
+            r4 = p.add_run(body)
+            for r in (r1, r2, r3, r4):
+                r.font.size = Pt(7.0)
+            start, end = add_bookmark(p, "_Ref" + num)   # 供正文交叉引用
+            p._p.insert(list(p._p).index(r2._r), start)
+            p._p.insert(list(p._p).index(r2._r) + 1, end)
             i += 1
             continue
         if line.startswith("    "):
