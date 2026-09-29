@@ -34,12 +34,13 @@ ax.axhline(bound["R_bound"], color=C_ORANGE, ls=":", lw=1.2, label="R 物理上�
 ax.axvline(P.LAMBDA_TARGET, color="#555555", ls=":", lw=1.0)
 ax.plot([P.LAMBDA_TARGET], [R_true[k1, I_T]], "o", color=C_TMM, ms=4)
 ax.annotate(f"$R_{{TMM}}$ = {R_true[k1, I_T]:.4f}\n$R_{{MLP}}$ = {R_mlp[k1, I_T]:.4f}",
-            xy=(P.LAMBDA_TARGET, R_true[k1, I_T]), xytext=(P.LAMBDA_TARGET + 40, 0.30),
+            xy=(P.LAMBDA_TARGET, R_true[k1, I_T]), xytext=(P.LAMBDA_TARGET + 75, 0.44),
             fontsize=7.6, arrowprops=dict(arrowstyle="-", lw=0.8, color="#666666"))
 ax.set_xlabel("波长 λ / nm")
 ax.set_ylabel("反射率 R")
 ax.set_ylim(0, 0.72)
-ax.legend(loc="lower left", fontsize=7.2)
+ax.legend(loc="lower left", fontsize=6.8, frameon=True,
+          framealpha=0.92, edgecolor="#cccccc")
 ax.set_title("最终设计的预测与复核光谱", fontsize=9.5)
 panel_letter(ax, "a")
 

@@ -1,0 +1,27 @@
+{
+  "delta": {
+    "file": "delta.png",
+    "width_cm": 5.182,
+    "height_cm": 0.762
+  },
+  "matrix": {
+    "file": "matrix.png",
+    "width_cm": 7.722,
+    "height_cm": 1.524
+  },
+  "bcr": {
+    "file": "bcr.png",
+    "width_cm": 11.779,
+    "height_cm": 1.168
+  },
+  "rR": {
+    "file": "rR.png",
+    "width_cm": 6.706,
+    "height_cm": 1.168
+  },
+  "adm": {
+    "file": "adm.png",
+    "width_cm": 7.722,
+    "height_cm": 1.422
+  }
+}

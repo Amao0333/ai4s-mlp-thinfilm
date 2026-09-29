@@ -18,17 +18,19 @@ MLP-Based Spectral Prediction and Data-Driven Design of Multilayer Dielectric Th
 
 ## 1. 引言
 
-多层介质薄膜由高、低折射率材料交替堆叠而成，其反射特性来自各界面反射光之间的干涉。在正入射、
-无吸收、忽略色散的条件下，给定各层折射率与厚度，光谱响应完全确定；反之，要在某波长获得特定
-反射率则需确定各层厚度，这是多变量、非线性的设计问题。四分之一波长条件给出了经典解，
-但膜厚的周期性与光谱的多峰特性使"厚度—光谱"映射呈现强非线性。
+多层介质薄膜由高、低折射率材料交替堆叠而成，其反射特性来自各界面反射光之间的干涉；在正入射、
+无吸收、忽略色散的条件下，给定各层折射率与厚度，光谱响应即完全确定[2,3]。反之，要在某波长获得
+特定反射率则需确定各层厚度，这是多变量、非线性的设计问题。四分之一波长条件给出了经典解，但膜厚的
+周期性与光谱的多峰特性使"厚度—光谱"映射呈现强非线性，传统优化算法（如针式法）需要大量迭代[9]。
 
 传输矩阵法（TMM）是计算多层膜光谱的经典方法：把每层写成一个 2×2 特征矩阵，沿膜系连乘后由等效
-导纳得到反射率。单条光谱的计算开销很小，但当设计流程需要评估上万组候选结构时，累积代价迅速
-上升；若再考虑色散、斜入射与吸收，单次前向计算的成本还会显著增加。
+导纳得到反射率[2,3]。单条光谱的计算开销很小，但当设计流程需要评估上万组候选结构时，累积代价迅速
+上升；若再考虑色散、斜入射与吸收，单次前向计算的成本还会显著增加[1]。
 
 机器学习代理模型提供了另一条路径：用数据学习"膜厚到光谱"的映射，以极低的推理成本替代物理计算，
-用于大规模候选的初筛，最终结果再由物理模型复核——这正是 AI for Science 的典型范式。
+用于大规模候选的初筛，最终结果再由物理模型复核[4,5]，这正是 AI for Science 的典型范式[1]。这一思路
+已在多层膜体系中以串联网络、序列生成等不同形式实现[7,8]，而荧光等纳米结构的光谱—结构双向映射也
+验证了其可行性[6]。
 本文围绕三个问题展开：（1）MLP 能否准确预测反射光谱；（2）训练数据量增加后预测误差如何变化；
 （3）MLP 能否作为辅助手段完成目标波长下的薄膜设计。研究对象、目标波长与随机种子均按课程要求
 由学号统一确定，全部结果可由公开代码复现。
@@ -42,29 +44,29 @@ MLP-Based Spectral Prediction and Data-Driven Design of Multilayer Dielectric Th
 ### 2.1 光学模型与传输矩阵法
 
 研究对象为 Air/H/L/H/L/Glass 四层介质膜，正入射、无吸收、忽略色散。高、低折射率材料取
-nH = 2.30 与 nL = 1.45，基底 ns = 1.52，入射介质为空气 n0 = 1.00；每层膜厚 40–180 nm，
+n~H~ = 2.30 与 n~L~ = 1.45，基底 n~s~ = 1.52，入射介质为空气 n~0~ = 1.00；每层膜厚 40–180 nm，
 波长 400–800 nm、步长 10 nm，共 41 点。
 
 第 i 层的位相厚度为
 
-    δ_i = 2π n_i d_i / λ
+{{EQ:delta}}
 
 其特征矩阵为
 
-    M_i = [ cos δ_i        i sin δ_i / η_i ]
-          [ i η_i sin δ_i     cos δ_i     ]
+{{EQ:matrix}}
 
-其中正入射下光学导纳 η_i = n_i（自由空间单位）。整个膜系的特征矩阵为各层矩阵按入射到出射顺序的
-连乘 M = M_1 M_2 M_3 M_4，由
+其中正入射下光学导纳 η~i~ = n~i~（自由空间单位）[2,3]。整个膜系的特征矩阵为各层矩阵按入射到
+出射顺序的连乘 M = M₁M₂M₃M₄，由
 
-    [B; C] = M [1; η_s]
+{{EQ:bcr}}
 
-得到等效导纳 Y = C/B，反射系数与反射率分别为
-
-    r = (η_0 − Y) / (η_0 + Y)，R = |r|²
+即由等效导纳 Y = C/B 得到反射系数 r 与反射率 R。
 
 本文用两套独立实现计算 R：一是上述特征矩阵连乘；二是从基底出发的等效导纳递推
-Y ← (Y cos δ + i η sin δ) / (cos δ + i (Y/η) sin δ)。二者数学等价但代码路径不同，用于互相验错。
+
+{{EQ:adm}}
+
+二者数学等价但代码路径不同，用于互相验错。
 校核结果：裸基底与解析值 4.258% 差 {{TMM_BARE_ERR}}；四分之一波长膜系在 480 nm 处与导纳链解析值
 {{TMM_QW}} 差 {{TMM_QW_ERR}}；200 组随机单层膜与解析式最大偏差 {{TMM_SINGLE_ERR}}；两套实现在
 2000 组随机膜厚上的最大差异 {{TMM_TWO_IMPL}}；R + T = 1 偏差 {{TMM_ENERGY}}；与在线 TMM 工具
@@ -72,8 +74,8 @@ Y ← (Y cos δ + i η sin δ) / (cos δ + i (Y/η) sin δ)。二者数学等价
 
 {{FIG:fig2_model_data.png}}
 
-**图 2** 物理模型与 TMM 数据生成，包括膜系结构、三条代表性反射光谱与 5000 组样本在目标波长处的
-反射率分布。
+**图 2** 物理模型与 TMM 数据生成：(a) 膜系结构与折射率（n~H~、n~L~、n~s~）；(b) 三条代表性反射
+光谱，虚线为 λ_target = {{LAMBDA_TARGET}} nm；(c) 5000 组样本在目标波长处的反射率分布，橙色虚线为解析上限。
 
 ### 2.2 个人目标波长与随机种子
 
@@ -93,8 +95,8 @@ Y ← (Y cos δ + i η sin δ) / (cos δ + i (Y/η) sin δ)。二者数学等价
 MLP 输入为归一化到 [0, 1] 的四层膜厚 (d − 40)/140，输出为 41 点反射率。结构为
 4–128–128–64–41，隐藏层用 ReLU，输出层线性，参数量约 2.7×10⁴。损失为均方误差（MSE），
 优化器 Adam（学习率 3×10⁻³，批大小 256），最多训练 4000 轮，以验证集损失早停（耐心 400 轮）
-并取验证集最优权重。训练在 CPU 上完成，单次约 {{TRAIN_TIME}} s；数据量实验中各模型除样本数与
-初始化种子外超参数完全一致。
+并取验证集最优权重。数组运算与自动微分分别由 NumPy[11] 与 PyTorch[12] 提供，训练在 CPU 上完成，
+单次约 {{TRAIN_TIME}} s；数据量实验中各模型除样本数与初始化种子外超参数完全一致。
 
 {{FIG:fig3_arch.png}}
 
@@ -215,7 +217,7 @@ MLP 对"膜厚—光谱"映射的学习效果总体良好：测试集 R² = {{TE
 不如在误差较大的区域补充样本。
 
 数据量效应显示误差按 N^(−{{SIZE_ALPHA}}) 下降且边际收益递减：从 500 组增至 1000 组的收益远大于从
-2000 组增至 4000 组。这与泛化误差随训练集规模幂律下降的经验规律一致，说明在给定采样间隔与网络
+2000 组增至 4000 组。这与泛化误差随训练集规模幂律下降的经验规律一致[10]，说明在给定采样间隔与网络
 容量下，继续增加均匀随机样本的收益有限。需说明的是，该拟合仅基于 4 个数据量水平、每个水平 3 个
 种子，α 应视为趋势性估计。
 
@@ -252,15 +254,15 @@ README 记录了个人参数 λ_target = {{LAMBDA_TARGET}} nm、seed = {{SEED}}�
 
 ## 参考文献
 
-[1] Ma T, Ma M, Guo L J. Optical multilayer thin film structure inverse design: from optimization to deep learning. iScience, 2025, 28: 112222.
-[2] Macleod H A. Thin-Film Optical Filters. 5th ed. Boca Raton: CRC Press, 2018.
+[1] Ma T, Ma M, Guo L J. Optical multilayer thin film structure inverse design: from optimization to deep learning. iScience 2025, 28: 112222.
+[2] Macleod H A. Thin-film optical filters. 5th ed. Boca Raton: CRC Press, 2018.
 [3] 唐晋发, 顾培夫, 刘旭, 等. 现代光学薄膜技术. 杭州: 浙江大学出版社, 2006.
-[4] Peurifoy J, Shen Y, Jing L, et al. Nanophotonic particle simulation and inverse design using artificial neural networks. Science Advances, 2018, 4(6): eaar4206.
-[5] Liu D, Tan Y, Khoram E, et al. Training deep neural networks for the inverse design of nanophotonic structures. ACS Photonics, 2018, 5(4): 1365-1369.
-[6] Malkiel I, Mrejen M, Nagler A, et al. Plasmonic nanostructure design and characterization via deep learning. Light: Science & Applications, 2018, 7: 60.
-[7] Ma T, Wang H, Guo L J. OptoGPT: a foundation model for inverse design in optical multilayer thin film structures. Opto-Electronic Advances, 2024, 7(7): 240062.
-[8] Meng F, Ding J, Zhao Y, et al. Inverse design of reflectionless thin-film multilayers with optical absorption utilizing tandem neural network. Photonics, 2024, 11(10): 964.
-[9] Sullivan B T, Dobrowolski J A. Implementation of a numerical needle method for thin-film design. Applied Optics, 1996, 35(28): 5484-5492.
+[4] Peurifoy J, Shen Y, Jing L, et al. Nanophotonic particle simulation and inverse design using artificial neural networks. Science Advances 2018, 4: eaar4206.
+[5] Liu D, Tan Y, Khoram E, et al. Training deep neural networks for the inverse design of nanophotonic structures. ACS Photonics 2018, 5: 1365-1369.
+[6] Malkiel I, Mrejen M, Nagler A, et al. Plasmonic nanostructure design and characterization via deep learning. Light: Science & Applications 2018, 7: 60.
+[7] Ma T, Wang H, Guo L J. OptoGPT: a foundation model for inverse design in optical multilayer thin film structures. Opto-Electronic Advances 2024, 7: 240062.
+[8] Meng F, Ding J, Zhao Y, et al. Inverse design of reflectionless thin-film multilayers with optical absorption utilizing tandem neural network. Photonics 2024, 11: 964.
+[9] Sullivan B T, Dobrowolski J A. Implementation of a numerical needle method for thin-film design. Applied Optics 1996, 35: 5484-5492.
 [10] Hestness J, Narang S, Ardalani N, et al. Deep learning scaling is predictable, empirically. arXiv:1712.00409, 2017.
-[11] Harris C R, Millman K J, van der Walt S J, et al. Array programming with NumPy. Nature, 2020, 585: 357-362.
-[12] Paszke A, Gross S, Massa F, et al. PyTorch: an imperative style, high-performance deep learning library. NeurIPS, 2019, 32: 8024-8035.
+[11] Harris C R, Millman K J, van der Walt S J, et al. Array programming with NumPy. Nature 2020, 585: 357-362.
+[12] Paszke A, Gross S, Massa F, et al. PyTorch: an imperative style, high-performance deep learning library. NeurIPS 2019, 32: 8024-8035.

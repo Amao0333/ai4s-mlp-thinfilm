@@ -33,8 +33,10 @@ ax.set_ylim(-0.02, 0.85)
 d_txt = ", ".join(f"{x:.1f}" for x in w["d_nm"])
 ax.set_title(f"最大误差样本  MAE = {w['per_sample_mae']:.4f}", fontsize=9.5)
 panel_letter(ax, "a")
-ax.text(0.03, 0.06, f"膜厚 = ({d_txt}) nm", transform=ax.transAxes, fontsize=7.4)
-ax.legend(loc="upper left", fontsize=7.4)
+ax.text(0.03, 0.92, f"膜厚 = ({d_txt}) nm", transform=ax.transAxes, va="top", fontsize=7.0,
+        bbox=dict(boxstyle="round,pad=0.25", facecolor="white", edgecolor="#cccccc", alpha=0.92))
+ax.legend(loc="upper left", fontsize=7.0,
+          frameon=True, framealpha=0.92, edgecolor="#cccccc")
 
 ax = axes[1]
 cv = np.load(P.RES_DIR / "coverage.npz")
@@ -62,7 +64,8 @@ ax.text(0.03, 0.95, f"Pearson r = {r.statistic:.3f}，$r^2$ = {r.statistic ** 2:
         transform=ax.transAxes, va="top", fontsize=7.4)
 ax.text(0.03, 0.86, f"稀疏组 MSE 比密集组高 {ratio:.0%}",
         transform=ax.transAxes, va="top", fontsize=7.4)
-ax.legend(loc="lower right", fontsize=7.0)
+ax.legend(loc="upper right", fontsize=6.8, frameon=True,
+          framealpha=0.92, edgecolor="#cccccc")
 ax.set_title("误差随局部采样稀疏度上升", fontsize=9.5)
 panel_letter(ax, "b")
 fig.tight_layout()

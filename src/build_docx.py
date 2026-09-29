@@ -22,7 +22,7 @@ import params as P
 DOCX_OUT = P.ROOT / "paper" / "AI4S论文-MLP多层介质薄膜光谱预测与辅助设计.docx"
 PDF_OUT = DOCX_OUT.with_suffix(".pdf")
 CENTER = WD_ALIGN_PARAGRAPH.CENTER
-FIGURE_WIDTH_CM = 11.0
+FIGURE_WIDTH_CM = 10.5
 FIGURE_MAX_HEIGHT_CM = 6.0
 
 
@@ -68,10 +68,10 @@ def body_paragraph(doc, text, indent=True, size=10, align=WD_ALIGN_PARAGRAPH.JUS
     p = doc.add_paragraph()
     p.alignment = align
     pf = p.paragraph_format
-    pf.line_spacing = 1.12          # 模板为 1.179，略微收紧以控制在 6 页内
+    pf.line_spacing = 1.06          # 模板为 1.179，略微收紧以控制在 6 页内
     if indent:
         pf.first_line_indent = Pt(2 * size)
-    pf.space_after = Pt(1.5)
+    pf.space_after = Pt(1.0)
     p.add_run(text).font.size = Pt(size)
     return p
 
@@ -128,6 +128,52 @@ def add_caption_into(par, text, size=8.5):
     return par
 
 
+def add_formula(doc, name):
+    """按渲染时的原始尺寸插入公式图片（保证字号与正文一致）。"""
+    meta = json.loads((P.RES_DIR / "formula_meta.json").read_text(encoding="utf-8"))[name]
+    p = doc.add_paragraph()
+    p.alignment = CENTER
+    p.paragraph_format.space_before = Pt(2)
+    p.paragraph_format.space_after = Pt(2)
+    p.paragraph_format.keep_together = True
+    p.add_run().add_picture(str(P.FIG_DIR / "formulas" / meta["file"]),
+                            width=Cm(meta["width_cm"]))
+    return p
+
+
+def set_three_line_table(table):
+    """按中文论文惯例把表格设为三线表：顶线、栏目线、底线，无竖线。"""
+    from docx.oxml.ns import qn
+    tblPr = table._tbl.tblPr
+    for old in tblPr.findall(qn("w:tblBorders")):
+        tblPr.remove(old)
+    borders = tblPr.makeelement(qn("w:tblBorders"), {})
+    for edge, sz in (("top", 12), ("bottom", 12),
+                     ("left", 0), ("right", 0), ("insideH", 0), ("insideV", 0)):
+        el = borders.makeelement(qn(f"w:{edge}"), {})
+        if sz:
+            el.set(qn("w:val"), "single")
+            el.set(qn("w:sz"), str(sz))
+            el.set(qn("w:color"), "000000")
+        else:
+            el.set(qn("w:val"), "none")
+            el.set(qn("w:sz"), "0")
+        borders.append(el)
+    tblPr.append(borders)
+    # 栏目线：表头行下框线
+    for cell in table.rows[0].cells:
+        tcPr = cell._tc.get_or_add_tcPr()
+        for old in tcPr.findall(qn("w:tcBorders")):
+            tcPr.remove(old)
+        tcB = tcPr.makeelement(qn("w:tcBorders"), {})
+        bottom = tcB.makeelement(qn("w:bottom"), {})
+        bottom.set(qn("w:val"), "single")
+        bottom.set(qn("w:sz"), "6")
+        bottom.set(qn("w:color"), "000000")
+        tcB.append(bottom)
+        tcPr.append(tcB)
+
+
 def add_table_caption(doc, text, size=8.5):
     return caption_paragraph(doc, text, size=size, keep=True)
 
@@ -136,8 +182,8 @@ def add_top5_table(doc):
     ds = json.loads((P.RES_DIR / "design_screening.json").read_text(encoding="utf-8"))
     rows = ds["final_top5"]
     t = doc.add_table(rows=1 + len(rows), cols=7)
-    t.style = "Table Grid"
     t.alignment = WD_TABLE_ALIGNMENT.CENTER
+    set_three_line_table(t)
     head = ["排名", "d₁ / nm", "d₂ / nm", "d₃ / nm", "d₄ / nm",
             "MLP 预测 R(480 nm)", "TMM 复核 R(480 nm)"]
     for j, h in enumerate(head):
@@ -203,6 +249,11 @@ def render_markdown(doc, md_text):
             pending_fig = s.split(":")[1].rstrip("}")
             i += 1
             continue
+        if s.startswith("{{EQ:"):
+            flush()
+            add_formula(doc, s[5:].rstrip("}"))
+            i += 1
+            continue
         if s.startswith("{{TABLE:top5}}"):
             flush()
             add_top5_table(doc)
@@ -249,7 +300,7 @@ def render_markdown(doc, md_text):
             p.paragraph_format.left_indent = Pt(15)
             p.paragraph_format.first_line_indent = Pt(-15)
             p.paragraph_format.space_after = Pt(0.2)
-            p.add_run(s).font.size = Pt(7.5)
+            p.add_run(s).font.size = Pt(7.0)
             i += 1
             continue
         if line.startswith("    "):

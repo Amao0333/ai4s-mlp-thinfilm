@@ -69,14 +69,12 @@ cases = [(d_qw, "四分之一波长膜系", C_ORANGE),
 for ds, lab, c in cases:
     ax.plot(P.WAVELENGTHS, tmm.reflectance_char_matrix(ds)[0], color=c, label=lab)
 ax.axvline(P.LAMBDA_TARGET, color="#888888", ls=":", lw=1.1)
-ax.annotate(f"$\lambda_{{target}}$ = {int(P.LAMBDA_TARGET)} nm",
-            xy=(P.LAMBDA_TARGET, 0.10), xytext=(P.LAMBDA_TARGET + 90, 0.80),
-            fontsize=7.0, color="#555555",
-            arrowprops=dict(arrowstyle="-", lw=0.7, color="#999999"))
+
 ax.set_xlabel("波长 λ / nm", fontsize=8.5)
 ax.set_ylabel("反射率 R", fontsize=8.5)
 ax.set_ylim(-0.02, 1.05)
-ax.legend(loc="upper right", fontsize=7.0)
+ax.legend(loc="upper right", fontsize=6.8, frameon=True, framealpha=0.92,
+          edgecolor="#cccccc")
 letter(ax, "b")
 ax.set_title("TMM 反射光谱", fontsize=9.0, pad=10)
 
@@ -91,7 +89,8 @@ ax.axvline(qw["R_analytic"], color=C_ORANGE, ls="--", lw=1.3,
 ax.set_xlabel(f"R({int(P.LAMBDA_TARGET)} nm)", fontsize=8.5)
 ax.set_ylabel("样本数", fontsize=8.5)
 ax.set_xlim(0, 0.70)
-ax.legend(loc="upper left", fontsize=6.4, handlelength=1.2)
+ax.legend(loc="upper left", fontsize=6.4, handlelength=1.2, frameon=True,
+          framealpha=0.92, edgecolor="#cccccc")
 letter(ax, "c")
 ax.set_title("目标波长处 R 的分布", fontsize=9.0, pad=10)
 

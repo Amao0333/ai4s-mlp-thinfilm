@@ -173,7 +173,7 @@ def main():
     for k, val in values.items():
         out = out.replace("{{" + k + "}}", str(val))
     left = [t for t in out.split("{{")[1:]
-            if "}}" in t and not t.startswith(("FIG:", "TABLE:"))]
+            if "}}" in t and not t.startswith(("FIG:", "TABLE:", "EQ:"))]
     if left:
         raise SystemExit("未填充的占位符: " + ", ".join(sorted({t.split('}}')[0] for t in left})))
     (P.ROOT / "paper" / "manuscript.md").write_text(out, encoding="utf-8")
