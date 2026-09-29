@@ -20,6 +20,7 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.shared import Cm, Pt
 
 from docx_richtext import REF_HEAD, add_bookmark, add_rich_runs
+from docx_equation import body_paragraph_index, insert_matrix, materialize
 
 import params as P
 
@@ -126,16 +127,24 @@ def add_caption_into(par, text, size=8.5):
 
 
 def add_formula(doc, name):
-    """按渲染时的原始尺寸插入公式图片（保证字号与正文一致）。"""
-    meta = json.loads((P.RES_DIR / "formula_meta.json").read_text(encoding="utf-8"))[name]
+    """插入公式：矩阵直接写 OMML；其余留占位段，稍后由 officecli 生成原生公式。"""
+    if name == "matrix":
+        insert_matrix(doc)
+        return None
     p = doc.add_paragraph()
     p.alignment = CENTER
     p.paragraph_format.space_before = Pt(2)
     p.paragraph_format.space_after = Pt(2)
     p.paragraph_format.keep_together = True
-    p.add_run().add_picture(str(P.FIG_DIR / "formulas" / meta["file"]),
-                            width=Cm(meta["width_cm"]))
+    r = p.add_run("@EQ@")
+    r.font.size = Pt(1)
+    para_id = "5E%06X" % (1000 + len(EQ_SLOTS))
+    p._p.set(qn("w14:paraId"), para_id)      # 用 paraId 精确定位该占位段落
+    EQ_SLOTS.append((para_id, name))
     return p
+
+
+EQ_SLOTS = []
 
 
 def set_three_line_table(table):
@@ -347,6 +356,9 @@ def main():
     DOCX_OUT.parent.mkdir(parents=True, exist_ok=True)
     doc.save(str(DOCX_OUT))
     print("DOCX:", DOCX_OUT)
+    if EQ_SLOTS:
+        materialize(DOCX_OUT, EQ_SLOTS)
+        print("公式已转为原生 Word 公式（OMML）：", len(EQ_SLOTS), "个 + 矩阵 1 个")
 
     try:
         import win32com.client
