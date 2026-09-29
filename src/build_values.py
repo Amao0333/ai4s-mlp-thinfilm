@@ -37,6 +37,7 @@ def pct(x, nd=1):
 def collect():
     v = {
         "LAMBDA_TARGET": int(P.LAMBDA_TARGET), "SEED": P.SEED, "DESIGN_SEED": P.DESIGN_SEED,
+        "REPO_URL": P.REPO_URL,
     }
     tv = load("tmm_validation.json")
     v["TMM_BARE_ERR"] = sci(tv["bare_substrate"]["abs_err"])

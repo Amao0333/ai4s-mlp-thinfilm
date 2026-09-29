@@ -243,7 +243,7 @@ TMM 复核反射率 {{DESIGN_R}}，达四分之一波长理论上限 {{R_BOUND}}
 本研究所用数据全部由本文 TMM 代码生成。全部源代码、模型训练脚本、薄膜筛选脚本、
 环境依赖与复现说明可在以下仓库获取：
 
-    https://github.com/USERNAME/REPOSITORY
+    {{REPO_URL}}
 
 仓库中 README 记录了个人参数 λ_target = {{LAMBDA_TARGET}} nm、seed = {{SEED}}、
 design_seed = {{DESIGN_SEED}}，以及环境配置、数据生成、模型训练、结果复现与薄膜筛选的完整步骤。
