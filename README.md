@@ -51,9 +51,17 @@ python benchmark.py         # 10. 耗时基准
 python enrichment_experiment.py    # 11. 局部加密对照实验
 python tolerance.py         # 12. 公差敏感性
 python make_all_figures.py  # 13. 生成论文与报告全部图件（figs/）
+python check_consistency.py # 14. 论文数值与结果文件一致性核查
 ```
 
 一键运行：`python reproduce_all.py`。
+
+交付前一致性核查（重算关键指标并与结果文件及论文数值比对）：
+
+```bash
+cd src
+python check_consistency.py
+```
 
 云端交叉验证（可选，需要网络）：`python dreapex_crosscheck.py`，
 用 Dreapex 在线 TMM 独立核对本地 TMM，5 个代表性膜系的最大偏差 < 1e-15。
