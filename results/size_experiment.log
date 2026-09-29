@@ -1,0 +1,95 @@
+[size500_s303003] n_train=500 seed=303003 epochs=4000 best=3755 val_mse=5.480e-04 test_mse=5.373e-04 test_rmse=2.318e-02 test_mae=1.610e-02 (18.9s)
+[size500_s304003] n_train=500 seed=304003 epochs=4000 best=3868 val_mse=6.964e-04 test_mse=6.645e-04 test_rmse=2.578e-02 test_mae=1.761e-02 (19.3s)
+[size500_s305003] n_train=500 seed=305003 epochs=4000 best=3825 val_mse=7.612e-04 test_mse=6.747e-04 test_rmse=2.597e-02 test_mae=1.773e-02 (20.0s)
+[size1000_s303003] n_train=1000 seed=303003 epochs=4000 best=3915 val_mse=2.923e-04 test_mse=2.867e-04 test_rmse=1.693e-02 test_mae=1.201e-02 (30.2s)
+[size1000_s304003] n_train=1000 seed=304003 epochs=3229 best=2829 val_mse=2.408e-04 test_mse=2.489e-04 test_rmse=1.578e-02 test_mae=1.136e-02 (25.3s)
+[size1000_s305003] n_train=1000 seed=305003 epochs=4000 best=3993 val_mse=2.770e-04 test_mse=2.759e-04 test_rmse=1.661e-02 test_mae=1.166e-02 (35.9s)
+[size2000_s303003] n_train=2000 seed=303003 epochs=3997 best=3597 val_mse=1.233e-04 test_mse=1.204e-04 test_rmse=1.097e-02 test_mae=7.869e-03 (72.6s)
+[size2000_s304003] n_train=2000 seed=304003 epochs=4000 best=3959 val_mse=1.275e-04 test_mse=1.251e-04 test_rmse=1.118e-02 test_mae=8.100e-03 (73.3s)
+[size2000_s305003] n_train=2000 seed=305003 epochs=3933 best=3533 val_mse=1.317e-04 test_mse=1.364e-04 test_rmse=1.168e-02 test_mae=8.361e-03 (71.4s)
+[size4000_s303003] n_train=4000 seed=303003 epochs=4000 best=3986 val_mse=8.170e-05 test_mse=7.417e-05 test_rmse=8.612e-03 test_mae=6.381e-03 (136.4s)
+[size4000_s304003] n_train=4000 seed=304003 epochs=3837 best=3437 val_mse=7.617e-05 test_mse=7.659e-05 test_rmse=8.751e-03 test_mae=6.371e-03 (114.0s)
+[size4000_s305003] n_train=4000 seed=305003 epochs=4000 best=3907 val_mse=7.505e-05 test_mse=7.201e-05 test_rmse=8.486e-03 test_mae=6.195e-03 (118.9s)
+{
+  "levels": [
+    {
+      "n_train": 500,
+      "test_mse": [
+        0.0005372964078560472,
+        0.0006644938257522881,
+        0.0006746681756339967
+      ],
+      "test_mse_mean": 0.0006254861364141107,
+      "test_mse_std": 7.654378169542936e-05,
+      "test_rmse_mean": 0.02497726938595458,
+      "test_rmse_std": 0.0015598800124849825,
+      "test_mae_mean": 0.017145813753207523,
+      "test_mae_std": 0.0009048707202436127
+    },
+    {
+      "n_train": 1000,
+      "test_mse": [
+        0.0002867344592232257,
+        0.00024888894404284656,
+        0.00027594994753599167
+      ],
+      "test_mse_mean": 0.00027052445026735467,
+      "test_mse_std": 1.9497378548822097e-05,
+      "test_rmse_mean": 0.01644039703418852,
+      "test_rmse_std": 0.0005972381756051,
+      "test_mae_mean": 0.011679120361804962,
+      "test_mae_std": 0.0003254999712911625
+    },
+    {
+      "n_train": 2000,
+      "test_mse": [
+        0.00012039983266731724,
+        0.00012506380153354257,
+        0.00013643843703903258
+      ],
+      "test_mse_mean": 0.00012730069041329747,
+      "test_mse_std": 8.249967360140276e-06,
+      "test_rmse_mean": 0.01127885502208198,
+      "test_rmse_std": 0.0003635652709354271,
+      "test_mae_mean": 0.008110161560277144,
+      "test_mae_std": 0.0002461003937916126
+    },
+    {
+      "n_train": 4000,
+      "test_mse": [
+        7.417285087285563e-05,
+        7.658808317501098e-05,
+        7.200953405117616e-05
+      ],
+      "test_mse_mean": 7.425682269968092e-05,
+      "test_mse_std": 2.2904293201531954e-06,
+      "test_rmse_mean": 0.008616557029515574,
+      "test_rmse_std": 0.00013285889198693933,
+      "test_mae_mean": 0.006315850497533877,
+      "test_mae_std": 0.00010466725649298521
+    }
+  ],
+  "power_law_fit": {
+    "alpha": 1.0310665998052646,
+    "a": 0.35431425029749003,
+    "r2": 0.9909887956055795,
+    "x": [
+      6.214608098422191,
+      6.907755278982137,
+      7.600902459542082,
+      8.294049640102028
+    ],
+    "y": [
+      -7.376981392309151,
+      -8.215148074604164,
+      -8.968958628901893,
+      -9.507980896291738
+    ],
+    "y_fit": [
+      -7.445245888089914,
+      -8.159926794714464,
+      -8.874607701339011,
+      -9.58928860796356
+    ]
+  }
+}

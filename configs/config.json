@@ -1,0 +1,68 @@
+{
+  "student_id": "2023303003",
+  "n_last2": 3,
+  "lambda_target_nm": 480,
+  "seed": 303003,
+  "design_seed": 303004,
+  "target_rule": "lambda_target = 450 + 10 * (N mod 31), seed = last 6 digits, design_seed = seed + 1",
+  "optics": {
+    "incident": 1.0,
+    "high": 2.3,
+    "low": 1.45,
+    "substrate": 1.52,
+    "stack": [
+      "H",
+      "L",
+      "H",
+      "L"
+    ],
+    "n_layers": 4,
+    "wavelength_range_nm": [
+      400.0,
+      800.0,
+      10.0
+    ],
+    "n_wavelengths": 41,
+    "thickness_range_nm": [
+      40.0,
+      180.0
+    ]
+  },
+  "dataset": {
+    "n_total": 5000,
+    "n_train": 4000,
+    "n_val": 500,
+    "n_test": 500,
+    "n_design_candidates": 10000
+  },
+  "model": {
+    "layers": [
+      4,
+      128,
+      128,
+      64,
+      41
+    ],
+    "activation": "ReLU",
+    "loss": "MSE",
+    "optimizer": "Adam",
+    "lr": 0.003,
+    "batch_size": 256,
+    "max_epochs": 4000,
+    "early_stop_patience": 400,
+    "input_scaling": "(d - 40) / 140",
+    "output": "linear",
+    "train_seeds": [
+      303003,
+      304003,
+      305003
+    ]
+  },
+  "train_size_levels": [
+    500,
+    1000,
+    2000,
+    4000
+  ]
+}
+config written: G:\工作\pi-workspace\薄膜技术\期末大作业\ai4s-mlp-thinfilm\configs\config.json

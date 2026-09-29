@@ -1,0 +1,23 @@
+{
+  "n_candidates": 10000,
+  "tmm": {
+    "batch_seconds": 0.4263788200012641,
+    "per_candidate_us": 42.63788200012641,
+    "single_call_us": 133.47099993552547
+  },
+  "mlp": {
+    "batch_seconds": 0.0030979999981354924,
+    "per_candidate_us": 0.3097999998135492,
+    "single_call_us": 165.48649997275788
+  },
+  "speedup_batch": 137.63034869524756,
+  "speedup_single": 0.8065370888712811,
+  "training_seconds": 211.71565800000099,
+  "breakeven_candidates": 500.1777732296874,
+  "design_workflow": {
+    "exhaustive_tmm_seconds": 0.4218884000001708,
+    "mlp_then_verify_top10_seconds": 0.004641599996830337,
+    "speedup": 90.89288182701453
+  },
+  "note": "exhaustive = TMM on all candidates; surrogate = MLP on all + TMM on Top10"
+}

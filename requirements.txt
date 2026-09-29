@@ -1,0 +1,8 @@
+# 《薄膜技术》AI4S 大作业 —— 运行环境
+# Python 3.12
+numpy==2.4.6
+scipy==1.18.0
+torch==2.13.0
+matplotlib==3.9.0
+# 仅生成论文 DOCX 时需要
+python-docx==1.2.0
