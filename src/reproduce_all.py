@@ -35,6 +35,8 @@ STEPS = [
     ("ranking_limit.py", "排名分辨率极限"),
     ("enrichment_experiment.py", "局部加密补充实验"),
     ("tolerance.py", "公差敏感性"),
+    ("random_baseline.py", "随机基线对照"),
+    ("capacity_experiment.py", "模型容量对照实验"),
     ("make_all_figures.py", "生成全部图件"),
 ]
 
@@ -53,7 +55,8 @@ PAPER_TAIL_STEPS = [
     ("check_consistency.py", "交付前一致性核查"),
 ]
 
-TRAIN_SCRIPTS = ("train.py", "size_experiment.py", "enrichment_experiment.py")
+TRAIN_SCRIPTS = ("train.py", "size_experiment.py", "enrichment_experiment.py",
+                 "capacity_experiment.py")
 
 
 def run(script, desc, cwd=None, use_node=False):

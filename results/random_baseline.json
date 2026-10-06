@@ -1,0 +1,25 @@
+{
+  "n_pool": 10000,
+  "n_draw": 10,
+  "n_repeat": 100000,
+  "seed": 303003,
+  "mlp_top10": {
+    "best_R_tmm": 0.6578608349750397,
+    "mean_R_tmm": 0.648660056391203
+  },
+  "random_10": {
+    "best_R_tmm_mean": 0.5702352901434442,
+    "best_R_tmm_median": 0.5881576107325418,
+    "best_R_tmm_p95": 0.6402739024606088,
+    "best_R_tmm_p99": 0.6518837076845999,
+    "best_R_tmm_max": 0.6578608349750397,
+    "mean_R_tmm_mean": 0.2977879049927093,
+    "prob_beat_mlp_top1": 0.00119
+  },
+  "gain": {
+    "abs_over_random_mean": 0.08762554483159546,
+    "abs_over_random_p99": 0.005977127290439754,
+    "ratio_over_random_mean": 1.153665594441819
+  },
+  "note": "基线为等概率无放回随机抽取同样数量的候选；MLP 为代理模型排序后取 Top10 并以 TMM 复核"
+}

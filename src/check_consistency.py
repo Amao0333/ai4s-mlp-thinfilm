@@ -162,6 +162,22 @@ rows.append(("OK " if not missing_in_text else "FAIL", "文献表条目均在正
              "12/12" if not missing_in_text else str(missing_in_text), "-", "是"))
 ok = ok and not missing_in_text
 
+# 6f) 容量对照实验：误差瓶颈在数据还是容量
+cap = json.loads((P.RES_DIR / "capacity_experiment.json").read_text(encoding="utf-8"))
+cs = {s["config"]: s for s in cap["summary"]}
+check("容量对照：小/基准 MSE 倍数", cs["small"]["test_mse"] / cs["base"]["test_mse"],
+      9.106, "9.1 倍", tol=5e-3)
+check("容量对照：大模型 MSE 降幅", 1.0 - cs["large"]["test_mse"] / cs["base"]["test_mse"],
+      0.580, "58%", tol=5e-3)
+check("容量对照：大模型 R²", cs["large"]["test_r2"], 0.9991, "0.9991", tol=5e-5)
+
+# 6g) 随机基线对照：Q3 需有基线才有说服力
+rb = json.loads((P.RES_DIR / "random_baseline.json").read_text(encoding="utf-8"))
+check("随机基线：超过 MLP Top1 的概率", rb["random_10"]["prob_beat_mlp_top1"],
+      0.00119, "0.12%", tol=2e-5)
+check("随机基线：最优者 R 均值", rb["random_10"]["best_R_tmm_mean"],
+      0.5702, "0.5702", tol=5e-5)
+
 # 7) 图件与论文文件齐备
 FIG = ["fig1_workflow.png", "fig2_model_data.png", "fig3_arch.png", "fig4_training.png",
        "fig5_prediction.png", "fig6_datasize.png", "fig7_design.png", "fig8_failure.png"]

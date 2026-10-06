@@ -170,6 +170,22 @@ def collect():
     n_param = sum(sizes[i] * sizes[i + 1] + sizes[i + 1] for i in range(len(sizes) - 1))
     v["N_PARAM"] = f"{n_param / 1e4:.1f}"
 
+    # 容量对照实验：误差瓶颈在数据还是容量
+    cap = load("capacity_experiment.json")
+    cs = {s["config"]: s for s in cap["summary"]}
+    v["CAP_SMALL_N"] = sci(cs["small"]["n_param"], 2)
+    v["CAP_LARGE_N"] = sci(cs["large"]["n_param"], 2)
+    v["CAP_SMALL_UP"] = num(cs["small"]["test_mse"] / cs["base"]["test_mse"], 1)
+    v["CAP_LARGE_DROP"] = pct(1.0 - cs["large"]["test_mse"] / cs["base"]["test_mse"], 0)
+    v["CAP_LARGE_R2"] = num(cs["large"]["test_r2"], 4)
+
+    # 随机基线：不用模型、随机挑同样数量候选的对照水平
+    rb = load("random_baseline.json")
+    v["RB_MEAN"] = num(rb["random_10"]["best_R_tmm_mean"], 4)
+    v["RB_P99"] = num(rb["random_10"]["best_R_tmm_p99"], 4)
+    v["RB_PROB"] = f"{rb['random_10']['prob_beat_mlp_top1'] * 100:.2f}%"
+    v["RB_GAIN"] = num(rb["gain"]["abs_over_random_mean"], 4)
+
     # 参考文献表：由 Zotero 书目（results/references_authoritative.json）经
     # citeproc-js + GB/T 7714-2015 样式渲染（tools/render_bibliography.mjs）
     refs = load("references_gbt7714.json")

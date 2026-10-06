@@ -32,14 +32,19 @@ def train(n_train, seed, tag="run", verbose=True):
     return train_idx(D, R, idx_train, idx_val, idx_test, seed, tag, verbose)
 
 
-def train_idx(D, R, idx_train, idx_val, idx_test, seed, tag="run", verbose=True):
-    """在给定索引上训练，供数据量实验与补充实验复用。"""
+def train_idx(D, R, idx_train, idx_val, idx_test, seed, tag="run", verbose=True, hidden=None):
+    """在给定索引上训练，供数据量实验与补充实验复用。
+
+    hidden=None 时用 params.HIDDEN（论文基准结构）；传入元组可做容量对照实验，
+    除网络结构外其余超参数完全一致。
+    """
+    hidden = tuple(P.HIDDEN if hidden is None else hidden)
     torch.manual_seed(seed)
     Xtr, Ytr = _tensors(D, R, idx_train)
     Xva, Yva = _tensors(D, R, idx_val)
     Xte, Yte = _tensors(D, R, idx_test)
 
-    model = MLP(P.HIDDEN)
+    model = MLP(hidden)
     opt = torch.optim.Adam(model.parameters(), lr=P.LR)
     lossf = nn.MSELoss()
     gen = torch.Generator().manual_seed(seed)
@@ -98,7 +103,8 @@ def train_idx(D, R, idx_train, idx_val, idx_test, seed, tag="run", verbose=True)
         "test": metrics(pred_te, true_te),
         "val": metrics(pred_va, true_va),
         "wall_seconds": dt,
-        "arch": [P.N_LAYERS, *P.HIDDEN, P.N_WL],
+        "arch": [P.N_LAYERS, *hidden, P.N_WL],
+        "n_param": int(sum(p.numel() for p in model.parameters())),
     }
     torch.save({"state": best["state"], "tag": tag, "n_train": int(len(idx_train)),
                 "init_seed": int(seed), "best_epoch": best["epoch"]},
