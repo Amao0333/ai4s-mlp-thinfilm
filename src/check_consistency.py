@@ -178,17 +178,29 @@ check("随机基线：超过 MLP Top1 的概率", rb["random_10"]["prob_beat_mlp
 check("随机基线：最优者 R 均值", rb["random_10"]["best_R_tmm_mean"],
       0.5702, "0.5702", tol=5e-5)
 
+# 6h) 容量 × 数据量二维网格：幂律指数本身依赖容量
+gs = json.loads((P.RES_DIR / "capacity_size_grid.json").read_text(encoding="utf-8"))
+gf = gs["power_law_per_capacity"]
+check("容量网格：小容量 α", gf["small"]["alpha"], 0.433, "0.43", tol=1e-3)
+check("容量网格：基准 α", gf["base"]["alpha"], 0.982, "0.98", tol=1e-3)
+check("容量网格：大容量 α", gf["large"]["alpha"], 1.385, "1.38", tol=1e-3)
+check("容量网格：500 组处大/基准之比",
+      gs["grid"]["large"]["points"]["500"]["test_mse"] /
+      gs["grid"]["base"]["points"]["500"]["test_mse"], 1.067, None, tol=5e-3)
+
 # 7) 图件与论文文件齐备
 FIG = ["fig1_workflow.png", "fig2_model_data.png", "fig3_arch.png", "fig4_training.png",
-       "fig5_prediction.png", "fig6_datasize.png", "fig7_design.png", "fig8_failure.png"]
+       "fig5_prediction.png", "fig6_datasize.png", "fig7_design.png", "fig8_failure.png",
+       "fig9_capacity.png"]
 missing = [f for f in FIG if not (P.FIG_DIR / f).exists()]
 docx = P.ROOT / "paper" / "AI4S论文-MLP多层介质薄膜光谱预测与辅助设计.docx"
 pdf = docx.with_suffix(".pdf")
 files_ok = not missing and docx.exists() and pdf.exists()
 if not files_ok:
     ok = False
-rows.append(("OK " if files_ok else "FAIL", "8 张图件与论文 DOCX/PDF",
-             f"{len(FIG) - len(missing)}/8", "-", "是"))
+rows.append(("OK " if files_ok else "FAIL",
+             f"{len(FIG)} 张图件与论文 DOCX/PDF",
+             f"{len(FIG) - len(missing)}/{len(FIG)}", "-", "是"))
 
 # 8) 论文中不得残留未替换占位符
 bad = re.findall(r"\{\{[A-Z_]+\}\}", MANUSCRIPT)

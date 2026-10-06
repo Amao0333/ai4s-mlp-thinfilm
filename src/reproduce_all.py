@@ -37,6 +37,7 @@ STEPS = [
     ("tolerance.py", "公差敏感性"),
     ("random_baseline.py", "随机基线对照"),
     ("capacity_experiment.py", "模型容量对照实验"),
+    ("capacity_size_grid.py", "容量×数据量二维网格"),
     ("make_all_figures.py", "生成全部图件"),
 ]
 

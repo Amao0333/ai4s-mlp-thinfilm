@@ -30,34 +30,45 @@ tmm.reflectance_char_matrix(D_des[:16])
 with torch.no_grad():
     model(X[:16])
 
-reps = 5
-t0 = time.perf_counter()
+# 计时取多次重复的中位数：单次测量在共享机器上波动可达数倍
+reps = 9
+_t = []
 for _ in range(reps):
+    t0 = time.perf_counter()
     tmm.reflectance_char_matrix(D_des)
-t_tmm = (time.perf_counter() - t0) / reps
+    _t.append(time.perf_counter() - t0)
+t_tmm = float(np.median(_t))
 
-t0 = time.perf_counter()
+_t = []
 with torch.no_grad():
     for _ in range(reps):
+        t0 = time.perf_counter()
         model(X)
-t_mlp = (time.perf_counter() - t0) / reps
+        _t.append(time.perf_counter() - t0)
+t_mlp = float(np.median(_t))
 
 # 单点前向（1 个候选）
-t0 = time.perf_counter()
+_t = []
 for _ in range(200):
+    t0 = time.perf_counter()
     tmm.reflectance_char_matrix(D_des[:1])
-t_tmm_1 = (time.perf_counter() - t0) / 200
-t0 = time.perf_counter()
+    _t.append(time.perf_counter() - t0)
+t_tmm_1 = float(np.median(_t))
+_t = []
 with torch.no_grad():
     for _ in range(200):
+        t0 = time.perf_counter()
         model(X[:1])
-t_mlp_1 = (time.perf_counter() - t0) / 200
+        _t.append(time.perf_counter() - t0)
+t_mlp_1 = float(np.median(_t))
 
 train_time = json.loads((P.RES_DIR / "metrics_base.json").read_text(encoding="utf-8"))["wall_seconds"]
 
-# 盈亏平衡：把训练开销摊到筛选上
-marginal = t_tmm - t_mlp
-breakeven = train_time / marginal if marginal > 0 else None
+# 盈亏平衡：把训练开销摊到筛选上。
+# 注意：t_tmm / t_mlp 是对 N 个候选的总耗时，需先换算成单候选的边际节省，
+# 否则得到的是“需要多少个候选批次”而非候选数（早期版本在此处差了 N 倍）。
+marginal_per_candidate = (t_tmm - t_mlp) / N
+breakeven = train_time / marginal_per_candidate if marginal_per_candidate > 0 else None
 
 # 实际设计流程耗时对比
 t0 = time.perf_counter()

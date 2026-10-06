@@ -110,7 +110,8 @@ def collect():
     v["EXHAUSTIVE_T"] = num(bm["design_workflow"]["exhaustive_tmm_seconds"], 2)
     v["SURROGATE_T"] = num(bm["design_workflow"]["mlp_then_verify_top10_seconds"], 3)
     v["BENCH_SPEEDUP"] = num(bm["speedup_batch"], 0)
-    v["BREAKEVEN"] = num(math.ceil(bm["breakeven_candidates"]), 0)
+    # 盈亏平衡点随机器负载波动，只作量级参考，故用科学计数而非精确整数
+    v["BREAKEVEN"] = sci(bm["breakeven_candidates"], 2)
 
     st = load("dataset_stats.json")
     v["PCT_ABOVE_060"] = pct(st["count_R_above_threshold_all"]["0.60"] / st["n_total"], 1)
@@ -178,6 +179,16 @@ def collect():
     v["CAP_SMALL_UP"] = num(cs["small"]["test_mse"] / cs["base"]["test_mse"], 1)
     v["CAP_LARGE_DROP"] = pct(1.0 - cs["large"]["test_mse"] / cs["base"]["test_mse"], 0)
     v["CAP_LARGE_R2"] = num(cs["large"]["test_r2"], 4)
+
+    # 容量 × 数据量 二维网格：幂律指数本身依赖容量
+    grid = load("capacity_size_grid.json")
+    gf = grid["power_law_per_capacity"]
+    v["ALPHA_SMALL"] = num(gf["small"]["alpha"], 2)
+    v["ALPHA_BASE"] = num(gf["base"]["alpha"], 2)
+    v["ALPHA_LARGE"] = num(gf["large"]["alpha"], 2)
+    # 两点差异仅约 7%，用两位有效数字避免显示成"6 与 5"造成误导
+    v["MSE_500_BASE"] = sci(grid["grid"]["base"]["points"]["500"]["test_mse"], 2)
+    v["MSE_500_LARGE"] = sci(grid["grid"]["large"]["points"]["500"]["test_mse"], 2)
 
     # 随机基线：不用模型、随机挑同样数量候选的对照水平
     rb = load("random_baseline.json")

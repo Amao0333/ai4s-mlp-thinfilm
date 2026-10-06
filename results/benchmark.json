@@ -1,23 +1,23 @@
 {
   "n_candidates": 10000,
   "tmm": {
-    "batch_seconds": 0.4263788200012641,
-    "per_candidate_us": 42.63788200012641,
-    "single_call_us": 133.47099993552547
+    "batch_seconds": 0.22269079997204244,
+    "per_candidate_us": 22.269079997204244,
+    "single_call_us": 96.49997809901834
   },
   "mlp": {
-    "batch_seconds": 0.0030979999981354924,
-    "per_candidate_us": 0.3097999998135492,
-    "single_call_us": 165.48649997275788
+    "batch_seconds": 0.001865199999883771,
+    "per_candidate_us": 0.1865199999883771,
+    "single_call_us": 106.99999984353781
   },
-  "speedup_batch": 137.63034869524756,
-  "speedup_single": 0.8065370888712811,
+  "speedup_batch": 119.39245120411715,
+  "speedup_single": 0.9018689555152031,
   "training_seconds": 211.71565800000099,
-  "breakeven_candidates": 500.1777732296874,
+  "breakeven_candidates": 9587459.879049066,
   "design_workflow": {
-    "exhaustive_tmm_seconds": 0.4218884000001708,
-    "mlp_then_verify_top10_seconds": 0.004641599996830337,
-    "speedup": 90.89288182701453
+    "exhaustive_tmm_seconds": 0.2744364999816753,
+    "mlp_then_verify_top10_seconds": 0.004214300017338246,
+    "speedup": 65.12030440467063
   },
   "note": "exhaustive = TMM on all candidates; surrogate = MLP on all + TMM on Top10"
 }
