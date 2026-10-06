@@ -190,6 +190,12 @@ def collect():
     v["MSE_500_BASE"] = sci(grid["grid"]["base"]["points"]["500"]["test_mse"], 2)
     v["MSE_500_LARGE"] = sci(grid["grid"]["large"]["points"]["500"]["test_mse"], 2)
 
+    # 不同容量代理模型的筛选能力对比
+    dsc = load("design_screen_capacity.json")
+    v["DS_LARGE_MAE"] = num(dsc["models"]["large"]["pred_mae_at_target"], 5)
+    v["DS_LARGE_RHO"] = num(dsc["models"]["large"]["spearman_rho"], 4)
+    v["DS_LARGE_RECALL"] = pct(dsc["models"]["large"]["top10_recall_vs_tmm_top10"], 0)
+
     # 随机基线：不用模型、随机挑同样数量候选的对照水平
     rb = load("random_baseline.json")
     v["RB_MEAN"] = num(rb["random_10"]["best_R_tmm_mean"], 4)

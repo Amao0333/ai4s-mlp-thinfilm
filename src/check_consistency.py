@@ -188,6 +188,15 @@ check("容量网格：500 组处大/基准之比",
       gs["grid"]["large"]["points"]["500"]["test_mse"] /
       gs["grid"]["base"]["points"]["500"]["test_mse"], 1.067, None, tol=5e-3)
 
+# 6i) 大容量代理模型的筛选能力
+dsc = json.loads((P.RES_DIR / "design_screen_capacity.json").read_text(encoding="utf-8"))
+check("大容量筛选：目标波长 MAE", dsc["models"]["large"]["pred_mae_at_target"],
+      0.00517, "0.00517", tol=5e-5)
+check("大容量筛选：Top10 召回率",
+      dsc["models"]["large"]["top10_recall_vs_tmm_top10"], 0.80, "80%", tol=1e-6)
+check("大容量筛选：Spearman ρ", dsc["models"]["large"]["spearman_rho"],
+      0.9992, "0.9992", tol=5e-5)
+
 # 7) 图件与论文文件齐备
 FIG = ["fig1_workflow.png", "fig2_model_data.png", "fig3_arch.png", "fig4_training.png",
        "fig5_prediction.png", "fig6_datasize.png", "fig7_design.png", "fig8_failure.png",
