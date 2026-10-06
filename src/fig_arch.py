@@ -11,6 +11,10 @@ from matplotlib.patches import Circle, FancyBboxPatch
 import params as P
 from plotstyle import PALETTE, panel_frame, panel_label, rbox, save
 
+# 参数量由网络结构直接算出，与论文正文（build_values.py 的 N_PARAM）同源，避免图与正文不一致
+_SHAPES = [P.N_LAYERS, *P.HIDDEN, P.N_WL]
+N_PARAM = sum(_SHAPES[i] * _SHAPES[i + 1] + _SHAPES[i + 1] for i in range(len(_SHAPES) - 1))
+
 fig, ax = plt.subplots(figsize=(5.33, 2.44))
 ax.set_xlim(0, 1)
 ax.set_ylim(0, 1)
@@ -70,7 +74,7 @@ for y, lab in zip(ys[xs[0]], LABELS):
 
 ax.text(0.365, 0.150, "输入 4 层膜厚，输出 41 点光谱，隐藏层激活 ReLU",
         ha="center", va="center", fontsize=7.0)
-ax.text(0.365, 0.080, "参数量约 2.7×10$^4$，全连接", ha="center", va="center", fontsize=7.0)
+ax.text(0.365, 0.080, f"参数量约 {N_PARAM / 1e4:.1f}×10$^4$，全连接", ha="center", va="center", fontsize=7.0)
 
 # ---------------- (b) 训练设置 ----------------
 panel_frame(ax, 0.720, 0.030, 0.988, 0.985)

@@ -1,0 +1,607 @@
+{
+  "items": [
+    {
+      "id": "1",
+      "type": "book",
+      "title": "Thin-Film Optical Filters",
+      "author": [
+        {
+          "family": "Macleod",
+          "given": "H. Angus"
+        }
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2017
+          ]
+        ]
+      },
+      "DOI": "10.1201/b21960",
+      "publisher": "CRC Press",
+      "publisher-place": "Boca Raton",
+      "edition": "5th",
+      "ISBN": "9781138198241"
+    },
+    {
+      "id": "2",
+      "type": "book",
+      "title": "现代光学薄膜技术",
+      "author": [
+        {
+          "literal": "唐晋发"
+        },
+        {
+          "literal": "顾培夫"
+        },
+        {
+          "literal": "刘旭"
+        },
+        {
+          "literal": "李海峰"
+        }
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2006
+          ]
+        ]
+      },
+      "publisher": "浙江大学出版社",
+      "publisher-place": "杭州",
+      "ISBN": "9787308049771"
+    },
+    {
+      "id": "3",
+      "type": "article-journal",
+      "title": "Implementation of a numerical needle method for thin-film design",
+      "author": [
+        {
+          "family": "Sullivan",
+          "given": "Brian T."
+        },
+        {
+          "family": "Dobrowolski",
+          "given": "J. A."
+        }
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            1996
+          ]
+        ]
+      },
+      "container-title": "Applied Optics",
+      "volume": "35",
+      "issue": "28",
+      "page": "5484",
+      "DOI": "10.1364/ao.35.005484",
+      "publisher": "Optica Publishing Group"
+    },
+    {
+      "id": "4",
+      "type": "article-journal",
+      "title": "Optical multilayer thin film structure inverse design: From optimization to deep learning",
+      "author": [
+        {
+          "family": "Ma",
+          "given": "Taigao"
+        },
+        {
+          "family": "Ma",
+          "given": "Mingqian"
+        },
+        {
+          "family": "Guo",
+          "given": "L. Jay"
+        }
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2025
+          ]
+        ]
+      },
+      "container-title": "iScience",
+      "volume": "28",
+      "issue": "4",
+      "page": "112222",
+      "DOI": "10.1016/j.isci.2025.112222",
+      "publisher": "Elsevier BV"
+    },
+    {
+      "id": "5",
+      "type": "article-journal",
+      "title": "Nanophotonic particle simulation and inverse design using artificial neural networks",
+      "author": [
+        {
+          "family": "Peurifoy",
+          "given": "John"
+        },
+        {
+          "family": "Shen",
+          "given": "Yichen"
+        },
+        {
+          "family": "Jing",
+          "given": "Li"
+        },
+        {
+          "family": "Yang",
+          "given": "Yi"
+        },
+        {
+          "family": "Cano-Renteria",
+          "given": "Fidel"
+        },
+        {
+          "family": "DeLacy",
+          "given": "Brendan G."
+        },
+        {
+          "family": "Joannopoulos",
+          "given": "John D."
+        },
+        {
+          "family": "Tegmark",
+          "given": "Max"
+        },
+        {
+          "family": "Soljačić",
+          "given": "Marin"
+        }
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2018
+          ]
+        ]
+      },
+      "container-title": "Science Advances",
+      "volume": "4",
+      "issue": "6",
+      "page": "eaar4206",
+      "DOI": "10.1126/sciadv.aar4206",
+      "publisher": "American Association for the Advancement of Science (AAAS)"
+    },
+    {
+      "id": "6",
+      "type": "article-journal",
+      "title": "Training Deep Neural Networks for the Inverse Design of Nanophotonic Structures",
+      "author": [
+        {
+          "family": "Liu",
+          "given": "Dianjing"
+        },
+        {
+          "family": "Tan",
+          "given": "Yixuan"
+        },
+        {
+          "family": "Khoram",
+          "given": "Erfan"
+        },
+        {
+          "family": "Yu",
+          "given": "Zongfu"
+        }
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2018
+          ]
+        ]
+      },
+      "container-title": "ACS Photonics",
+      "volume": "5",
+      "issue": "4",
+      "page": "1365-1369",
+      "DOI": "10.1021/acsphotonics.7b01377",
+      "publisher": "American Chemical Society (ACS)"
+    },
+    {
+      "id": "7",
+      "type": "article-journal",
+      "title": "OptoGPT: A foundation model for inverse design in optical multilayer thin film structures",
+      "author": [
+        {
+          "family": "Ma",
+          "given": "Taigao"
+        },
+        {
+          "family": "Wang",
+          "given": "Haozhu"
+        },
+        {
+          "family": "Guo",
+          "given": "L. Jay"
+        }
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2024
+          ]
+        ]
+      },
+      "container-title": "Opto-Electronic Advances",
+      "volume": "7",
+      "issue": "7",
+      "page": "240062",
+      "DOI": "10.29026/oea.2024.240062",
+      "publisher": "Opto-Electronic Advances"
+    },
+    {
+      "id": "8",
+      "type": "article-journal",
+      "title": "Inverse Design of Reflectionless Thin-Film Multilayers with Optical Absorption Utilizing Tandem Neural Network",
+      "author": [
+        {
+          "family": "Swe",
+          "given": "Su Kalayar"
+        },
+        {
+          "family": "Noh",
+          "given": "Heeso"
+        }
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2024
+          ]
+        ]
+      },
+      "container-title": "Photonics",
+      "volume": "11",
+      "issue": "10",
+      "page": "964",
+      "DOI": "10.3390/photonics11100964",
+      "publisher": "MDPI AG"
+    },
+    {
+      "id": "9",
+      "type": "article-journal",
+      "title": "Plasmonic nanostructure design and characterization via Deep Learning",
+      "author": [
+        {
+          "family": "Malkiel",
+          "given": "Itzik"
+        },
+        {
+          "family": "Mrejen",
+          "given": "Michael"
+        },
+        {
+          "family": "Nagler",
+          "given": "Achiya"
+        },
+        {
+          "family": "Arieli",
+          "given": "Uri"
+        },
+        {
+          "family": "Wolf",
+          "given": "Lior"
+        },
+        {
+          "family": "Suchowski",
+          "given": "Haim"
+        }
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2018
+          ]
+        ]
+      },
+      "container-title": "Light: Science & Applications",
+      "volume": "7",
+      "issue": "1",
+      "page": "60",
+      "DOI": "10.1038/s41377-018-0060-7",
+      "publisher": "Springer Science and Business Media LLC"
+    },
+    {
+      "id": "10",
+      "type": "article-journal",
+      "title": "Array programming with NumPy",
+      "author": [
+        {
+          "family": "Harris",
+          "given": "Charles R."
+        },
+        {
+          "family": "Millman",
+          "given": "K. Jarrod"
+        },
+        {
+          "family": "van der Walt",
+          "given": "Stéfan J."
+        },
+        {
+          "family": "Gommers",
+          "given": "Ralf"
+        },
+        {
+          "family": "Virtanen",
+          "given": "Pauli"
+        },
+        {
+          "family": "Cournapeau",
+          "given": "David"
+        },
+        {
+          "family": "Wieser",
+          "given": "Eric"
+        },
+        {
+          "family": "Taylor",
+          "given": "Julian"
+        },
+        {
+          "family": "Berg",
+          "given": "Sebastian"
+        },
+        {
+          "family": "Smith",
+          "given": "Nathaniel J."
+        },
+        {
+          "family": "Kern",
+          "given": "Robert"
+        },
+        {
+          "family": "Picus",
+          "given": "Matti"
+        },
+        {
+          "family": "Hoyer",
+          "given": "Stephan"
+        },
+        {
+          "family": "van Kerkwijk",
+          "given": "Marten H."
+        },
+        {
+          "family": "Brett",
+          "given": "Matthew"
+        },
+        {
+          "family": "Haldane",
+          "given": "Allan"
+        },
+        {
+          "family": "del Río",
+          "given": "Jaime Fernández"
+        },
+        {
+          "family": "Wiebe",
+          "given": "Mark"
+        },
+        {
+          "family": "Peterson",
+          "given": "Pearu"
+        },
+        {
+          "family": "Gérard-Marchant",
+          "given": "Pierre"
+        },
+        {
+          "family": "Sheppard",
+          "given": "Kevin"
+        },
+        {
+          "family": "Reddy",
+          "given": "Tyler"
+        },
+        {
+          "family": "Weckesser",
+          "given": "Warren"
+        },
+        {
+          "family": "Abbasi",
+          "given": "Hameer"
+        },
+        {
+          "family": "Gohlke",
+          "given": "Christoph"
+        },
+        {
+          "family": "Oliphant",
+          "given": "Travis E."
+        }
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2020
+          ]
+        ]
+      },
+      "container-title": "Nature",
+      "volume": "585",
+      "issue": "7825",
+      "page": "357-362",
+      "DOI": "10.1038/s41586-020-2649-2",
+      "publisher": "Springer Science and Business Media LLC"
+    },
+    {
+      "id": "11",
+      "type": "paper-conference",
+      "title": "PyTorch: An Imperative Style, High-Performance Deep Learning Library",
+      "author": [
+        {
+          "family": "Paszke",
+          "given": "Adam"
+        },
+        {
+          "family": "Gross",
+          "given": "Sam"
+        },
+        {
+          "family": "Massa",
+          "given": "Francisco"
+        },
+        {
+          "family": "Lerer",
+          "given": "Adam"
+        },
+        {
+          "family": "Bradbury",
+          "given": "James"
+        },
+        {
+          "family": "Chanan",
+          "given": "Gregory"
+        },
+        {
+          "family": "Killeen",
+          "given": "Trevor"
+        },
+        {
+          "family": "Lin",
+          "given": "Zeming"
+        },
+        {
+          "family": "Gimelshein",
+          "given": "Natalia"
+        },
+        {
+          "family": "Antiga",
+          "given": "Luca"
+        },
+        {
+          "family": "Desmaison",
+          "given": "Alban"
+        },
+        {
+          "family": "Köpf",
+          "given": "Andreas"
+        },
+        {
+          "family": "Yang",
+          "given": "Edward"
+        },
+        {
+          "family": "DeVito",
+          "given": "Zach"
+        },
+        {
+          "family": "Raison",
+          "given": "Martin"
+        },
+        {
+          "family": "Tejani",
+          "given": "Alykhan"
+        },
+        {
+          "family": "Chilamkurthy",
+          "given": "Sasank"
+        },
+        {
+          "family": "Steiner",
+          "given": "Benoit"
+        },
+        {
+          "family": "Fang",
+          "given": "Lu"
+        },
+        {
+          "family": "Bai",
+          "given": "Junjie"
+        },
+        {
+          "family": "Chintala",
+          "given": "Soumith"
+        }
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2019
+          ]
+        ]
+      },
+      "container-title": "Advances in Neural Information Processing Systems",
+      "volume": "32",
+      "publisher": "Curran Associates, Inc.",
+      "URL": "https://arxiv.org/abs/1912.01703"
+    },
+    {
+      "id": "12",
+      "type": "webpage",
+      "title": "Deep Learning Scaling is Predictable, Empirically",
+      "author": [
+        {
+          "family": "Hestness",
+          "given": "Joel"
+        },
+        {
+          "family": "Narang",
+          "given": "Sharan"
+        },
+        {
+          "family": "Ardalani",
+          "given": "Newsha"
+        },
+        {
+          "family": "Diamos",
+          "given": "Gregory"
+        },
+        {
+          "family": "Jun",
+          "given": "Heewoo"
+        },
+        {
+          "family": "Kianinejad",
+          "given": "Hassan"
+        },
+        {
+          "family": "Patwary",
+          "given": "Md. Mostofa Ali"
+        },
+        {
+          "family": "Yang",
+          "given": "Yang"
+        },
+        {
+          "family": "Zhou",
+          "given": "Yanqi"
+        }
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2017
+          ]
+        ]
+      },
+      "container-title": "arXiv",
+      "page": "arXiv:1712.00409",
+      "publisher": "arXiv",
+      "genre": "preprint",
+      "URL": "https://arxiv.org/abs/1712.00409"
+    }
+  ],
+  "key_order": [
+    "Macleod2018",
+    "Tang2006",
+    "Sullivan1996",
+    "Ma2025iScience",
+    "Peurifoy2018",
+    "Liu2018",
+    "Ma2024OptoGPT",
+    "Swe2024",
+    "Malkiel2018",
+    "Harris2020",
+    "Paszke2019",
+    "Hestness2017"
+  ]
+}

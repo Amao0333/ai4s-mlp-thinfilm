@@ -1,0 +1,9 @@
+{
+  "name": "ai4s-thinfilm-bib",
+  "private": true,
+  "type": "module",
+  "description": "用 Zotero 同款引用引擎 citeproc-js 与 Zotero 样式仓库的 GB/T 7714-2015 样式，把 CSL-JSON 渲染成论文参考文献表",
+  "dependencies": {
+    "citeproc": "^2.4.63"
+  }
+}

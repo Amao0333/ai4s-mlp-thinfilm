@@ -18,7 +18,7 @@ ps_mse = ev["per_sample_mse"]
 att = json.loads((P.RES_DIR / "attribution.json").read_text(encoding="utf-8"))
 k = att["worst_cases"][0]["test_pos"]
 
-fig, axes = plt.subplots(1, 2, figsize=(5.33, 1.72))
+fig, axes = plt.subplots(1, 2, figsize=(5.33, 2.02))
 
 ax = axes[0]
 ax.plot(P.WAVELENGTHS, true[k], color=C_TMM, label="TMM 真值")
@@ -31,6 +31,22 @@ ax.set_ylabel("反射率 R")
 ax.set_ylim(-0.02, 0.85)
 panel_letter(ax, "a", y=1.32)
 legend_above(ax, ncol=3, fs=6.2)
+
+# 残差插图：最大误差样本的偏差仅 0.015，主坐标下不可见，故单列放大
+res = pred[k] - true[k]
+axins = ax.inset_axes([0.545, 0.545, 0.430, 0.330])
+axins.axhline(0.0, color="#999999", lw=0.5)
+axins.fill_between(P.WAVELENGTHS, 0.0, res, color=C_ORANGE, alpha=0.28)
+axins.plot(P.WAVELENGTHS, res, color=C_ORANGE, lw=0.9)
+axins.axvline(P.LAMBDA_TARGET, color="#555555", ls=":", lw=0.7)
+axins.set_ylim(-0.038, 0.038)
+axins.set_yticks([-0.02, 0.0, 0.02])
+axins.set_xticks([400, 600, 800])
+axins.tick_params(labelsize=5.2, length=1.6, pad=0.8)
+axins.set_ylabel("ΔR", fontsize=5.4, labelpad=0.6)
+axins.grid(alpha=0.20, lw=0.3)
+for sp in axins.spines.values():
+    sp.set_linewidth(0.6)
 
 ax = axes[1]
 cv = np.load(P.RES_DIR / "coverage.npz")

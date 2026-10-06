@@ -1,8 +1,18 @@
 # 《薄膜技术》AI4S 大作业 —— 运行环境
-# Python 3.12
+# Python 3.12（开发环境实测版本，见各条目）
+#
+# 1) 数据生成 / 模型训练 / 评估 / 图件（核心复现链）
 numpy==2.4.6
 scipy==1.18.0
 torch==2.13.0
 matplotlib==3.9.0
-# 仅生成论文 DOCX 时需要
+
+# 2) 论文 DOCX/PDF 生成
 python-docx==1.2.0
+Pillow==10.4.0        # 读取图件像素尺寸，按原始尺寸 1:1 插入
+pywin32==311          # 调用本机 Microsoft Word 导出 PDF（需已安装 Word）
+
+# 3) 参考文献表渲染（tools/ 目录，Node.js 侧依赖）
+#    npm install   # 安装 citeproc（构建论文时必须）
+#    渲染引擎 citeproc-js 与 Zotero 内部使用的一致；
+#    样式文件与 zh-CN/en-US locale 已随仓库提供，无需联网。

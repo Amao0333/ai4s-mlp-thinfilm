@@ -85,7 +85,7 @@ def collect():
     v["RECALL5"] = pct(ds["ranking"]["top5_recall_vs_tmm_top5"], 0)
     top5 = ds["final_top5"]
     v["DESIGN_R"] = num(top5[0]["R_tmm_target"], 4)
-    v["DESIGN_PCTILE"] = num(top5[0]["peercentile_tmm"], 2)
+    v["DESIGN_PCTILE"] = num(top5[0]["percentile_tmm"], 2)
     v["TOP5_LO"] = num(min(t["R_tmm_target"] for t in top5), 4)
     v["TOP5_HI"] = num(max(t["R_tmm_target"] for t in top5), 4)
     v["MLP_TOP1_R"] = num(ds["mlp_top1"]["R_mlp_target"], 4)
@@ -160,9 +160,20 @@ def collect():
     tl = load("tolerance.json")
     scale = {r["eps"]: r for r in tl["systematic_scale"]}
     mc = {r["sigma_nm"]: r for r in tl["monte_carlo_per_layer"]}
-    v["TOL_1PCT"] = num(abs(scale[0.01]["dR"]), 4)
+    # 整体厚度偏差取 ±1% 中较差的一侧（保守口径）
+    v["TOL_1PCT"] = num(max(abs(scale[0.01]["dR"]), abs(scale[-0.01]["dR"])), 4)
     v["TOL_SIGMA2"] = num(abs(mc[2.0]["mean_dR"]), 4)
     v["TOL_SIGMA2_WORST"] = num(abs(mc[2.0]["worst_dR"]), 4)
+
+    # 网络参数量：由结构直接算出，不手写
+    sizes = [P.N_LAYERS, *P.HIDDEN, P.N_WL]
+    n_param = sum(sizes[i] * sizes[i + 1] + sizes[i + 1] for i in range(len(sizes) - 1))
+    v["N_PARAM"] = f"{n_param / 1e4:.1f}"
+
+    # 参考文献表：由 Zotero 书目（results/references_authoritative.json）经
+    # citeproc-js + GB/T 7714-2015 样式渲染（tools/render_bibliography.mjs）
+    refs = load("references_gbt7714.json")
+    v["REFERENCES"] = "\n".join(f"[{e['n']}] {e['text']}" for e in refs["entries"])
     return v
 
 

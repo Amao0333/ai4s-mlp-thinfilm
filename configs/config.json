@@ -1,5 +1,6 @@
 {
   "student_id": "2023303003",
+  "student_name": "",
   "n_last2": 3,
   "lambda_target_nm": 480,
   "seed": 303003,
@@ -65,4 +66,3 @@
     4000
   ]
 }
-config written: G:\工作\pi-workspace\薄膜技术\期末大作业\ai4s-mlp-thinfilm\configs\config.json

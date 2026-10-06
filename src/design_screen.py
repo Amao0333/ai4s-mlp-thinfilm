@@ -56,14 +56,15 @@ verified = [{"rank_mlp": int(i + 1), "sample_index": int(o),
              "d_nm": D_des[o].tolist(),
              "R_mlp_target": float(r_mlp_t[o]),
              "R_tmm_target": float(r_true_t[o]),
-             "peercentile_tmm": float(100.0 * (r_true_t < r_true_t[o]).mean())}
+             "percentile_tmm": float(100.0 * (r_true_t < r_true_t[o]).mean())}
             for i, o in enumerate(top10_mlp)]
 final5 = sorted(verified, key=lambda x: -x["R_tmm_target"])[:5]
 for i, f in enumerate(final5):
     f["final_rank"] = i + 1
 
 R_best = float(r_true_t.max())
-R_bound = 0.6588868299017764   # 第 8 步全局优化得到的物理上限（= QW 解）
+# 物理上限取自第 8 步的全局优化结果文件，避免在代码中重复写常数
+R_bound = float(json.loads((P.RES_DIR / "physical_bound.json").read_text(encoding="utf-8"))["R_bound"])
 p95 = float(np.percentile(r_true_t, 95))
 p99 = float(np.percentile(r_true_t, 99))
 

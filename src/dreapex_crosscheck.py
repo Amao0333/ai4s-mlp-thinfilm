@@ -1,26 +1,52 @@
 # -*- coding: utf-8 -*-
-"""第 4 步：用云端 Dreapex TMM 独立核对自写 TMM。
+"""第 4 步（可选，需要网络与外部辅助模块）：用云端 Dreapex TMM 独立核对自写 TMM。
 
 云端模型完全按作业口径设置：Air / H / L / H / L / Glass，常数折射率，
 正入射，400-800 nm 步长 10 nm。取若干代表性膜系比对。
+
+依赖：调用 Dreapex 接口需要 _tmm.py / _util.py 两个辅助模块。仓库不随附，
+按下列顺序查找（均未找到则直接跳过，不影响主复现链）：
+    1. 环境变量 DREAPEX_HELPER_DIR
+    2. <仓库根>/tools/dreapex/
+    3. <仓库根>/../_过程文件/（开发机目录约定）
 
 结果写入 results/dreapex_crosscheck.json
 """
 from __future__ import annotations
 
 import json
+import os
 import sys
 import time
+from pathlib import Path
 
 import numpy as np
 
-sys.path.insert(0, r"G:/工作/pi-workspace/薄膜技术/_过程文件")
-from _tmm import call, fetch_blob  # noqa: E402
-from _util import parse            # noqa: E402
-
-sys.path.insert(0, "src")
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 import params as P   # noqa: E402
 import tmm           # noqa: E402
+
+
+def _load_helper():
+    cands = [os.environ.get("DREAPEX_HELPER_DIR"),
+             str(P.ROOT / "tools" / "dreapex"),
+             str(P.ROOT.parent / "_过程文件")]
+    for c in cands:
+        if c and (Path(c) / "_tmm.py").exists() and (Path(c) / "_util.py").exists():
+            sys.path.insert(0, c)
+            return c
+    return None
+
+
+HELPER = _load_helper()
+if HELPER is None:
+    print("[skip] 未找到 Dreapex 辅助模块（_tmm.py / _util.py），跳过云端交叉验证。")
+    print("       如需运行，请设置环境变量 DREAPEX_HELPER_DIR 指向辅助模块目录。")
+    raise SystemExit(0)
+
+print(f"辅助模块目录: {HELPER}")
+from _tmm import call, fetch_blob  # noqa: E402
+from _util import parse            # noqa: E402
 
 WLS = [float(w) for w in P.WAVELENGTHS]
 

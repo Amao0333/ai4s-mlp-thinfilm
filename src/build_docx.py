@@ -20,7 +20,7 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.shared import Cm, Pt
 
 from docx_richtext import REF_HEAD, add_bookmark, add_rich_runs
-from docx_equation import body_paragraph_index, insert_matrix, materialize
+from docx_equation import insert_equation
 
 import params as P
 
@@ -127,24 +127,9 @@ def add_caption_into(par, text, size=8.5):
 
 
 def add_formula(doc, name):
-    """插入公式：矩阵直接写 OMML；其余留占位段，稍后由 officecli 生成原生公式。"""
-    if name == "matrix":
-        insert_matrix(doc)
-        return None
-    p = doc.add_paragraph()
-    p.alignment = CENTER
-    p.paragraph_format.space_before = Pt(2)
-    p.paragraph_format.space_after = Pt(2)
-    p.paragraph_format.keep_together = True
-    r = p.add_run("@EQ@")
-    r.font.size = Pt(1)
-    para_id = "5E%06X" % (1000 + len(EQ_SLOTS))
-    p._p.set(qn("w14:paraId"), para_id)      # 用 paraId 精确定位该占位段落
-    EQ_SLOTS.append((para_id, name))
-    return p
-
-
-EQ_SLOTS = []
+    """插入原生 Word 公式（OMML）：全部由 docx_equation 直接构造，不调外部命令。"""
+    insert_equation(doc, name)
+    return None
 
 
 def set_three_line_table(table):
@@ -209,6 +194,32 @@ def add_top5_table(doc):
             run.font.size = Pt(7.5)
             cell.paragraphs[0].alignment = CENTER
     return t
+
+
+def add_hyperlink(paragraph, url, text, size=9.5):
+    """把 URL 写成真正的 Word 超链接（Ctrl+点击可跳转）。"""
+    from docx.opc.constants import RELATIONSHIP_TYPE as RT
+    r_id = paragraph.part.relate_to(url, RT.HYPERLINK, is_external=True)
+    link = OxmlElement("w:hyperlink")
+    link.set(qn("r:id"), r_id)
+    run = OxmlElement("w:r")
+    rPr = OxmlElement("w:rPr")
+    color = OxmlElement("w:color")
+    color.set(qn("w:val"), "0563C1")
+    underline = OxmlElement("w:u")
+    underline.set(qn("w:val"), "single")
+    sz = OxmlElement("w:sz")
+    sz.set(qn("w:val"), str(int(size * 2)))
+    for el in (color, underline, sz):
+        rPr.append(el)
+    run.append(rPr)
+    t = OxmlElement("w:t")
+    t.set(qn("xml:space"), "preserve")
+    t.text = text
+    run.append(t)
+    link.append(run)
+    paragraph._p.append(link)
+    return paragraph
 
 
 def render_markdown(doc, md_text):
@@ -326,7 +337,10 @@ def render_markdown(doc, md_text):
             continue
         if s.startswith("https://"):
             flush()
-            body_paragraph(doc, s, indent=False, size=9.5, align=WD_ALIGN_PARAGRAPH.LEFT)
+            p = doc.add_paragraph()
+            p.alignment = WD_ALIGN_PARAGRAPH.LEFT
+            p.paragraph_format.space_after = Pt(1.0)
+            add_hyperlink(p, s, s, size=9.5)
             i += 1
             continue
         buf.append(s)
@@ -344,7 +358,7 @@ def main():
 
     doc = Document(str(template))
     pl = find_paragraph(doc, "姓名：")
-    set_text(pl, "姓名：__________    学号：2023303003")
+    set_text(pl, f"姓名：{P.STUDENT_NAME.strip() or '__________'}    学号：{P.STUDENT_ID}")
     pt = find_paragraph(doc, "λtarget")
     set_text(pt, f"λtarget：{int(P.LAMBDA_TARGET)} nm    seed：{P.SEED}    "
                  f"design_seed：{P.DESIGN_SEED}")
@@ -356,9 +370,6 @@ def main():
     DOCX_OUT.parent.mkdir(parents=True, exist_ok=True)
     doc.save(str(DOCX_OUT))
     print("DOCX:", DOCX_OUT)
-    if EQ_SLOTS:
-        materialize(DOCX_OUT, EQ_SLOTS)
-        print("公式已转为原生 Word 公式（OMML）：", len(EQ_SLOTS), "个 + 矩阵 1 个")
 
     try:
         import win32com.client

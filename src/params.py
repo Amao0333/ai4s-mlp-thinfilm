@@ -13,6 +13,9 @@ import numpy as np
 
 # ---------------------------------------------------------------- 个人参数
 STUDENT_ID = "2023303003"
+# 论文首页署名：填入真实姓名后重新运行 build_values.py 与 build_docx.py 即可
+# （留空时首页仍显示下划线占位）
+STUDENT_NAME = "林创锐"
 N_LAST2 = int(STUDENT_ID[-2:])                    # 03
 SEED = int(STUDENT_ID[-6:])                       # 303003
 DESIGN_SEED = SEED + 1                            # 303004
@@ -66,6 +69,7 @@ BASE_MODEL = RES_DIR / "base_model.pt"
 def as_dict() -> dict:
     return {
         "student_id": STUDENT_ID,
+        "student_name": STUDENT_NAME,
         "n_last2": N_LAST2,
         "lambda_target_nm": LAMBDA_TARGET,
         "seed": SEED,

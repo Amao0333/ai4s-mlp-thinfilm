@@ -1,25 +1,28 @@
-﻿TY  - JOUR
+TY  - JOUR
 AU  - Ma, Taigao
 AU  - Ma, Mingqian
 AU  - Guo, L. Jay
-TI  - Optical multilayer thin film structure inverse design: from optimization to deep learning
+TI  - Optical multilayer thin film structure inverse design: From optimization to deep learning
 JO  - iScience
-PY  - 2025
 VL  - 28
+IS  - 4
 SP  - 112222
+PY  - 2025
+PB  - Elsevier BV
 DO  - 10.1016/j.isci.2025.112222
-ID  - Ma2025iScience
+UR  - https://doi.org/10.1016/j.isci.2025.112222
 ER  - 
 
 TY  - BOOK
 AU  - Macleod, H. Angus
 TI  - Thin-Film Optical Filters
-ET  - 5th
+PY  - 2017
 PB  - CRC Press
 CY  - Boca Raton
-PY  - 2018
+ET  - 5th
 SN  - 9781138198241
-ID  - Macleod2018
+DO  - 10.1201/b21960
+UR  - https://doi.org/10.1201/b21960
 ER  - 
 
 TY  - BOOK
@@ -28,12 +31,11 @@ AU  - 顾培夫
 AU  - 刘旭
 AU  - 李海峰
 TI  - 现代光学薄膜技术
+PY  - 2006
 PB  - 浙江大学出版社
 CY  - 杭州
-PY  - 2006
-SN  - 7-308-04977-9
-LA  - zh
-ID  - Tang2006
+SN  - 9787308049771
+UR  - https://openlibrary.org/isbn/9787308049771
 ER  - 
 
 TY  - JOUR
@@ -48,25 +50,29 @@ AU  - Tegmark, Max
 AU  - Soljačić, Marin
 TI  - Nanophotonic particle simulation and inverse design using artificial neural networks
 JO  - Science Advances
-PY  - 2018
 VL  - 4
+IS  - 6
 SP  - eaar4206
+PY  - 2018
+PB  - American Association for the Advancement of Science (AAAS)
 DO  - 10.1126/sciadv.aar4206
-ID  - Peurifoy2018
+UR  - https://doi.org/10.1126/sciadv.aar4206
 ER  - 
 
 TY  - JOUR
 AU  - Liu, Dianjing
 AU  - Tan, Yixuan
-AU  - Khoram, Emad
+AU  - Khoram, Erfan
 AU  - Yu, Zongfu
-TI  - Training deep neural networks for the inverse design of nanophotonic structures
+TI  - Training Deep Neural Networks for the Inverse Design of Nanophotonic Structures
 JO  - ACS Photonics
-PY  - 2018
 VL  - 5
+IS  - 4
 SP  - 1365-1369
+PY  - 2018
+PB  - American Chemical Society (ACS)
 DO  - 10.1021/acsphotonics.7b01377
-ID  - Liu2018
+UR  - https://doi.org/10.1021/acsphotonics.7b01377
 ER  - 
 
 TY  - JOUR
@@ -76,47 +82,44 @@ AU  - Nagler, Achiya
 AU  - Arieli, Uri
 AU  - Wolf, Lior
 AU  - Suchowski, Haim
-TI  - Plasmonic nanostructure design and characterization via deep learning
+TI  - Plasmonic nanostructure design and characterization via Deep Learning
 JO  - Light: Science & Applications
-PY  - 2018
 VL  - 7
+IS  - 1
 SP  - 60
+PY  - 2018
+PB  - Springer Science and Business Media LLC
 DO  - 10.1038/s41377-018-0060-7
-ID  - Malkiel2018
+UR  - https://doi.org/10.1038/s41377-018-0060-7
 ER  - 
 
 TY  - JOUR
 AU  - Ma, Taigao
 AU  - Wang, Haozhu
 AU  - Guo, L. Jay
-TI  - OptoGPT: a foundation model for inverse design in optical multilayer thin film structures
+TI  - OptoGPT: A foundation model for inverse design in optical multilayer thin film structures
 JO  - Opto-Electronic Advances
-PY  - 2024
 VL  - 7
+IS  - 7
 SP  - 240062
+PY  - 2024
+PB  - Opto-Electronic Advances
 DO  - 10.29026/oea.2024.240062
-ID  - Ma2024OptoGPT
+UR  - https://doi.org/10.29026/oea.2024.240062
 ER  - 
 
 TY  - JOUR
-AU  - Meng, Fansheng
-AU  - Ding, Jieru
-AU  - Zhao, Yu
-AU  - Liu, Hui
-AU  - Su, Wei
-AU  - Yang, Liu
-AU  - Tao, Guangming
-AU  - Pryamikov, Andrey
-AU  - Wang, Xiaocong
-AU  - Mu, Hongwei
-AU  - et al.
-TI  - Inverse design of reflectionless thin-film multilayers with optical absorption utilizing tandem neural network
+AU  - Swe, Su Kalayar
+AU  - Noh, Heeso
+TI  - Inverse Design of Reflectionless Thin-Film Multilayers with Optical Absorption Utilizing Tandem Neural Network
 JO  - Photonics
-PY  - 2024
 VL  - 11
+IS  - 10
 SP  - 964
+PY  - 2024
+PB  - MDPI AG
 DO  - 10.3390/photonics11100964
-ID  - Meng2024
+UR  - https://doi.org/10.3390/photonics11100964
 ER  - 
 
 TY  - JOUR
@@ -124,52 +127,97 @@ AU  - Sullivan, Brian T.
 AU  - Dobrowolski, J. A.
 TI  - Implementation of a numerical needle method for thin-film design
 JO  - Applied Optics
-PY  - 1996
 VL  - 35
-SP  - 5484-5492
-DO  - 10.1364/AO.35.005484
-ID  - Sullivan1996
+IS  - 28
+SP  - 5484
+PY  - 1996
+PB  - Optica Publishing Group
+DO  - 10.1364/ao.35.005484
+UR  - https://doi.org/10.1364/ao.35.005484
 ER  - 
 
-TY  - JOUR
+TY  - GEN
 AU  - Hestness, Joel
 AU  - Narang, Sharan
 AU  - Ardalani, Newsha
 AU  - Diamos, Gregory
-AU  - et al.
-TI  - Deep learning scaling is predictable, empirically
-JO  - arXiv preprint
-PY  - 2017
+AU  - Jun, Heewoo
+AU  - Kianinejad, Hassan
+AU  - Patwary, Md. Mostofa Ali
+AU  - Yang, Yang
+AU  - Zhou, Yanqi
+TI  - Deep Learning Scaling is Predictable, Empirically
+T2  - arXiv
 SP  - arXiv:1712.00409
+PY  - 2017
+PB  - arXiv
 UR  - https://arxiv.org/abs/1712.00409
-ID  - Hestness2017
 ER  - 
 
 TY  - JOUR
 AU  - Harris, Charles R.
 AU  - Millman, K. Jarrod
 AU  - van der Walt, Stéfan J.
-AU  - et al.
+AU  - Gommers, Ralf
+AU  - Virtanen, Pauli
+AU  - Cournapeau, David
+AU  - Wieser, Eric
+AU  - Taylor, Julian
+AU  - Berg, Sebastian
+AU  - Smith, Nathaniel J.
+AU  - Kern, Robert
+AU  - Picus, Matti
+AU  - Hoyer, Stephan
+AU  - van Kerkwijk, Marten H.
+AU  - Brett, Matthew
+AU  - Haldane, Allan
+AU  - del Río, Jaime Fernández
+AU  - Wiebe, Mark
+AU  - Peterson, Pearu
+AU  - Gérard-Marchant, Pierre
+AU  - Sheppard, Kevin
+AU  - Reddy, Tyler
+AU  - Weckesser, Warren
+AU  - Abbasi, Hameer
+AU  - Gohlke, Christoph
+AU  - Oliphant, Travis E.
 TI  - Array programming with NumPy
 JO  - Nature
-PY  - 2020
 VL  - 585
+IS  - 7825
 SP  - 357-362
+PY  - 2020
+PB  - Springer Science and Business Media LLC
 DO  - 10.1038/s41586-020-2649-2
-ID  - Harris2020
+UR  - https://doi.org/10.1038/s41586-020-2649-2
 ER  - 
 
-TY  - CONF
+TY  - CPAPER
 AU  - Paszke, Adam
 AU  - Gross, Sam
 AU  - Massa, Francisco
 AU  - Lerer, Adam
-AU  - et al.
-TI  - PyTorch: an imperative style, high-performance deep learning library
-JO  - Advances in Neural Information Processing Systems
-PY  - 2019
+AU  - Bradbury, James
+AU  - Chanan, Gregory
+AU  - Killeen, Trevor
+AU  - Lin, Zeming
+AU  - Gimelshein, Natalia
+AU  - Antiga, Luca
+AU  - Desmaison, Alban
+AU  - Köpf, Andreas
+AU  - Yang, Edward
+AU  - DeVito, Zach
+AU  - Raison, Martin
+AU  - Tejani, Alykhan
+AU  - Chilamkurthy, Sasank
+AU  - Steiner, Benoit
+AU  - Fang, Lu
+AU  - Bai, Junjie
+AU  - Chintala, Soumith
+TI  - PyTorch: An Imperative Style, High-Performance Deep Learning Library
+T2  - Advances in Neural Information Processing Systems
 VL  - 32
-SP  - 8024-8035
+PY  - 2019
+PB  - Curran Associates, Inc.
 UR  - https://arxiv.org/abs/1912.01703
-ID  - Paszke2019
 ER  - 

@@ -1,0 +1,71 @@
+{
+  "engine": "citeproc-js",
+  "styleTitle": "China National Standard GB/T 7714-2015 (numeric)",
+  "styleSource": "https://www.zotero.org/styles/china-national-standard-gb-t-7714-2015-numeric",
+  "styleFile": "tools/china-national-standard-gb-t-7714-2015-numeric.csl",
+  "locale": "en-US（中文条目 et al. -> 等.；西文条目「版」-> ed.）",
+  "csl": "results/references_csl.json",
+  "note": "条目由 Zotero 库（results/references_authoritative.json）经 citeproc-js 渲染，格式与 Zotero 输出一致",
+  "entries": [
+    {
+      "n": 1,
+      "html": "MACLEOD H A. Thin-Film Optical Filters[M/OL]. 5th ed. Boca Raton: CRC Press, 2017. DOI:10.1201/b21960.",
+      "text": "MACLEOD H A. Thin-Film Optical Filters[M/OL]. 5th ed. Boca Raton: CRC Press, 2017. DOI:10.1201/b21960."
+    },
+    {
+      "n": 2,
+      "html": "唐晋发, 顾培夫, 刘旭, 等. 现代光学薄膜技术[M]. 杭州: 浙江大学出版社, 2006.",
+      "text": "唐晋发, 顾培夫, 刘旭, 等. 现代光学薄膜技术[M]. 杭州: 浙江大学出版社, 2006."
+    },
+    {
+      "n": 3,
+      "html": "SULLIVAN B T, DOBROWOLSKI J A. Implementation of a numerical needle method for thin-film design[J/OL]. Applied Optics, 1996, 35(28): 5484. DOI:10.1364/ao.35.005484.",
+      "text": "SULLIVAN B T, DOBROWOLSKI J A. Implementation of a numerical needle method for thin-film design[J/OL]. Applied Optics, 1996, 35(28): 5484. DOI:10.1364/ao.35.005484."
+    },
+    {
+      "n": 4,
+      "html": "MA T, MA M, GUO L J. Optical multilayer thin film structure inverse design: From optimization to deep learning[J/OL]. iScience, 2025, 28(4): 112222. DOI:10.1016/j.isci.2025.112222.",
+      "text": "MA T, MA M, GUO L J. Optical multilayer thin film structure inverse design: From optimization to deep learning[J/OL]. iScience, 2025, 28(4): 112222. DOI:10.1016/j.isci.2025.112222."
+    },
+    {
+      "n": 5,
+      "html": "PEURIFOY J, SHEN Y, JING L, et al. Nanophotonic particle simulation and inverse design using artificial neural networks[J/OL]. Science Advances, 2018, 4(6): eaar4206. DOI:10.1126/sciadv.aar4206.",
+      "text": "PEURIFOY J, SHEN Y, JING L, et al. Nanophotonic particle simulation and inverse design using artificial neural networks[J/OL]. Science Advances, 2018, 4(6): eaar4206. DOI:10.1126/sciadv.aar4206."
+    },
+    {
+      "n": 6,
+      "html": "LIU D, TAN Y, KHORAM E, et al. Training Deep Neural Networks for the Inverse Design of Nanophotonic Structures[J/OL]. ACS Photonics, 2018, 5(4): 1365-1369. DOI:10.1021/acsphotonics.7b01377.",
+      "text": "LIU D, TAN Y, KHORAM E, et al. Training Deep Neural Networks for the Inverse Design of Nanophotonic Structures[J/OL]. ACS Photonics, 2018, 5(4): 1365-1369. DOI:10.1021/acsphotonics.7b01377."
+    },
+    {
+      "n": 7,
+      "html": "MA T, WANG H, GUO L J. OptoGPT: A foundation model for inverse design in optical multilayer thin film structures[J/OL]. Opto-Electronic Advances, 2024, 7(7): 240062. DOI:10.29026/oea.2024.240062.",
+      "text": "MA T, WANG H, GUO L J. OptoGPT: A foundation model for inverse design in optical multilayer thin film structures[J/OL]. Opto-Electronic Advances, 2024, 7(7): 240062. DOI:10.29026/oea.2024.240062."
+    },
+    {
+      "n": 8,
+      "html": "SWE S K, NOH H. Inverse Design of Reflectionless Thin-Film Multilayers with Optical Absorption Utilizing Tandem Neural Network[J/OL]. Photonics, 2024, 11(10): 964. DOI:10.3390/photonics11100964.",
+      "text": "SWE S K, NOH H. Inverse Design of Reflectionless Thin-Film Multilayers with Optical Absorption Utilizing Tandem Neural Network[J/OL]. Photonics, 2024, 11(10): 964. DOI:10.3390/photonics11100964."
+    },
+    {
+      "n": 9,
+      "html": "MALKIEL I, MREJEN M, NAGLER A, et al. Plasmonic nanostructure design and characterization via Deep Learning[J/OL]. Light: Science & Applications, 2018, 7(1): 60. DOI:10.1038/s41377-018-0060-7.",
+      "text": "MALKIEL I, MREJEN M, NAGLER A, et al. Plasmonic nanostructure design and characterization via Deep Learning[J/OL]. Light: Science & Applications, 2018, 7(1): 60. DOI:10.1038/s41377-018-0060-7."
+    },
+    {
+      "n": 10,
+      "html": "HARRIS C R, MILLMAN K J, VAN DER WALT S J, et al. Array programming with NumPy[J/OL]. Nature, 2020, 585(7825): 357-362. DOI:10.1038/s41586-020-2649-2.",
+      "text": "HARRIS C R, MILLMAN K J, VAN DER WALT S J, et al. Array programming with NumPy[J/OL]. Nature, 2020, 585(7825): 357-362. DOI:10.1038/s41586-020-2649-2."
+    },
+    {
+      "n": 11,
+      "html": "PASZKE A, GROSS S, MASSA F, et al. PyTorch: An Imperative Style, High-Performance Deep Learning Library[C/OL]//Advances in Neural Information Processing Systems: Vol. 32. Curran Associates, Inc., 2019. https://arxiv.org/abs/1912.01703.",
+      "text": "PASZKE A, GROSS S, MASSA F, et al. PyTorch: An Imperative Style, High-Performance Deep Learning Library[C/OL]//Advances in Neural Information Processing Systems: Vol. 32. Curran Associates, Inc., 2019. https://arxiv.org/abs/1912.01703."
+    },
+    {
+      "n": 12,
+      "html": "HESTNESS J, NARANG S, ARDALANI N, et al. Deep Learning Scaling is Predictable, Empirically[EB/OL]. arXiv, 2017: arXiv:1712.00409. https://arxiv.org/abs/1712.00409.",
+      "text": "HESTNESS J, NARANG S, ARDALANI N, et al. Deep Learning Scaling is Predictable, Empirically[EB/OL]. arXiv, 2017: arXiv:1712.00409. https://arxiv.org/abs/1712.00409."
+    }
+  ]
+}

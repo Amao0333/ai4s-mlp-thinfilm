@@ -108,6 +108,60 @@ with torch.no_grad():
 check("加权模型目标波长 MAE", float(np.mean(np.abs(predw[:, I_T] - true[:, I_T]))),
       wlj["test_set"]["weighted"]["mae_at_target"], "0.00597", tol=1e-6)
 
+# 6e) 参考文献：权威元数据 ↔ CSL-JSON ↔ 参考文献表 ↔ references.bib
+#     本项为回归检查：早期版本曾把第 [8] 篇的作者写错（写成不存在的人），
+#     此处强制比对权威源里的第一作者，防止同类错误再次出现。
+auth = json.loads((P.RES_DIR / "references_authoritative.json").read_text(encoding="utf-8"))
+csl = json.loads((P.RES_DIR / "references_csl.json").read_text(encoding="utf-8"))
+gb = json.loads((P.RES_DIR / "references_gbt7714.json").read_text(encoding="utf-8"))
+bib = (P.ROOT / "references.bib").read_text(encoding="utf-8")
+
+n_ref = len(auth)
+check("参考文献条数（权威元数据）", float(n_ref), 12.0, None, tol=0.5)
+check("参考文献条数（GB/T 7714 表）", float(len(gb["entries"])), float(n_ref), None, tol=0.5)
+check("参考文献条数（CSL-JSON）", float(len(csl["items"])), float(n_ref), None, tol=0.5)
+
+ref_nums = [int(e["n"]) for e in gb["entries"]]
+rows.append(("OK " if ref_nums == list(range(1, n_ref + 1)) else "FAIL",
+             "文献表编号 1..N 连续", str(ref_nums[:3]) + "...", "-", "是"))
+ok = ok and ref_nums == list(range(1, n_ref + 1))
+
+# 每条：“bib 中存在该条目” + “权威源第一作者姓氏出现在对应文献表条目里”
+bib_keys = set(re.findall(r"@\w+\{([^,]+),", bib))
+fam = {}
+for k, v in auth.items():
+    a = (v.get("authors") or [""])[0]
+    fam[k] = (a.split()[-1] if a and not all(ord(c) > 127 for c in a) else a).upper()
+
+bad_fam, missing_bib = [], []
+for i, k in enumerate(csl["key_order"]):
+    entry = gb["entries"][i]["text"].upper()
+    surname = fam[k]
+    if surname and surname not in entry:
+        bad_fam.append(f"[{i + 1}]{k}:{surname}")
+    if k not in bib_keys:
+        missing_bib.append(k)
+rows.append(("OK " if not bad_fam else "FAIL", "文献表作者与权威源一致",
+             "12/12" if not bad_fam else ",".join(bad_fam), "-", "是"))
+rows.append(("OK " if not missing_bib else "FAIL", "references.bib 覆盖全部条目",
+             f"{n_ref - len(missing_bib)}/{n_ref}", "-", "是"))
+ok = ok and not bad_fam and not missing_bib
+
+# 第 [8] 篇专项：作者必须是 Swe / Noh
+idx_swe = csl["key_order"].index("Swe2024") + 1
+e_swe = gb["entries"][idx_swe - 1]["text"].upper()
+swe_ok = "SWE" in e_swe and "NOH" in e_swe and "MENG" not in e_swe
+rows.append(("OK " if swe_ok else "FAIL", f"第[{idx_swe}]篇作者 = Swe & Noh",
+             "Swe/Noh" if swe_ok else "异常", "-", "是"))
+ok = ok and swe_ok
+
+# 论文正文的引用编号与文献表编号必须闭环
+cited = {int(x) for m in re.findall(r"\[(\d+(?:,\d+)*)\]", MANUSCRIPT) for x in m.split(",")}
+missing_in_text = sorted(set(ref_nums) - cited)
+rows.append(("OK " if not missing_in_text else "FAIL", "文献表条目均在正文被引用",
+             "12/12" if not missing_in_text else str(missing_in_text), "-", "是"))
+ok = ok and not missing_in_text
+
 # 7) 图件与论文文件齐备
 FIG = ["fig1_workflow.png", "fig2_model_data.png", "fig3_arch.png", "fig4_training.png",
        "fig5_prediction.png", "fig6_datasize.png", "fig7_design.png", "fig8_failure.png"]
