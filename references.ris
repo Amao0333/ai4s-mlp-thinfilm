@@ -1,0 +1,175 @@
+﻿TY  - JOUR
+AU  - Ma, Taigao
+AU  - Ma, Mingqian
+AU  - Guo, L. Jay
+TI  - Optical multilayer thin film structure inverse design: from optimization to deep learning
+JO  - iScience
+PY  - 2025
+VL  - 28
+SP  - 112222
+DO  - 10.1016/j.isci.2025.112222
+ID  - Ma2025iScience
+ER  - 
+
+TY  - BOOK
+AU  - Macleod, H. Angus
+TI  - Thin-Film Optical Filters
+ET  - 5th
+PB  - CRC Press
+CY  - Boca Raton
+PY  - 2018
+SN  - 9781138198241
+ID  - Macleod2018
+ER  - 
+
+TY  - BOOK
+AU  - 唐晋发
+AU  - 顾培夫
+AU  - 刘旭
+AU  - 李海峰
+TI  - 现代光学薄膜技术
+PB  - 浙江大学出版社
+CY  - 杭州
+PY  - 2006
+SN  - 7-308-04977-9
+LA  - zh
+ID  - Tang2006
+ER  - 
+
+TY  - JOUR
+AU  - Peurifoy, John
+AU  - Shen, Yichen
+AU  - Jing, Li
+AU  - Yang, Yi
+AU  - Cano-Renteria, Fidel
+AU  - DeLacy, Brendan G.
+AU  - Joannopoulos, John D.
+AU  - Tegmark, Max
+AU  - Soljačić, Marin
+TI  - Nanophotonic particle simulation and inverse design using artificial neural networks
+JO  - Science Advances
+PY  - 2018
+VL  - 4
+SP  - eaar4206
+DO  - 10.1126/sciadv.aar4206
+ID  - Peurifoy2018
+ER  - 
+
+TY  - JOUR
+AU  - Liu, Dianjing
+AU  - Tan, Yixuan
+AU  - Khoram, Emad
+AU  - Yu, Zongfu
+TI  - Training deep neural networks for the inverse design of nanophotonic structures
+JO  - ACS Photonics
+PY  - 2018
+VL  - 5
+SP  - 1365-1369
+DO  - 10.1021/acsphotonics.7b01377
+ID  - Liu2018
+ER  - 
+
+TY  - JOUR
+AU  - Malkiel, Itzik
+AU  - Mrejen, Michael
+AU  - Nagler, Achiya
+AU  - Arieli, Uri
+AU  - Wolf, Lior
+AU  - Suchowski, Haim
+TI  - Plasmonic nanostructure design and characterization via deep learning
+JO  - Light: Science & Applications
+PY  - 2018
+VL  - 7
+SP  - 60
+DO  - 10.1038/s41377-018-0060-7
+ID  - Malkiel2018
+ER  - 
+
+TY  - JOUR
+AU  - Ma, Taigao
+AU  - Wang, Haozhu
+AU  - Guo, L. Jay
+TI  - OptoGPT: a foundation model for inverse design in optical multilayer thin film structures
+JO  - Opto-Electronic Advances
+PY  - 2024
+VL  - 7
+SP  - 240062
+DO  - 10.29026/oea.2024.240062
+ID  - Ma2024OptoGPT
+ER  - 
+
+TY  - JOUR
+AU  - Meng, Fansheng
+AU  - Ding, Jieru
+AU  - Zhao, Yu
+AU  - Liu, Hui
+AU  - Su, Wei
+AU  - Yang, Liu
+AU  - Tao, Guangming
+AU  - Pryamikov, Andrey
+AU  - Wang, Xiaocong
+AU  - Mu, Hongwei
+AU  - et al.
+TI  - Inverse design of reflectionless thin-film multilayers with optical absorption utilizing tandem neural network
+JO  - Photonics
+PY  - 2024
+VL  - 11
+SP  - 964
+DO  - 10.3390/photonics11100964
+ID  - Meng2024
+ER  - 
+
+TY  - JOUR
+AU  - Sullivan, Brian T.
+AU  - Dobrowolski, J. A.
+TI  - Implementation of a numerical needle method for thin-film design
+JO  - Applied Optics
+PY  - 1996
+VL  - 35
+SP  - 5484-5492
+DO  - 10.1364/AO.35.005484
+ID  - Sullivan1996
+ER  - 
+
+TY  - JOUR
+AU  - Hestness, Joel
+AU  - Narang, Sharan
+AU  - Ardalani, Newsha
+AU  - Diamos, Gregory
+AU  - et al.
+TI  - Deep learning scaling is predictable, empirically
+JO  - arXiv preprint
+PY  - 2017
+SP  - arXiv:1712.00409
+UR  - https://arxiv.org/abs/1712.00409
+ID  - Hestness2017
+ER  - 
+
+TY  - JOUR
+AU  - Harris, Charles R.
+AU  - Millman, K. Jarrod
+AU  - van der Walt, Stéfan J.
+AU  - et al.
+TI  - Array programming with NumPy
+JO  - Nature
+PY  - 2020
+VL  - 585
+SP  - 357-362
+DO  - 10.1038/s41586-020-2649-2
+ID  - Harris2020
+ER  - 
+
+TY  - CONF
+AU  - Paszke, Adam
+AU  - Gross, Sam
+AU  - Massa, Francisco
+AU  - Lerer, Adam
+AU  - et al.
+TI  - PyTorch: an imperative style, high-performance deep learning library
+JO  - Advances in Neural Information Processing Systems
+PY  - 2019
+VL  - 32
+SP  - 8024-8035
+UR  - https://arxiv.org/abs/1912.01703
+ID  - Paszke2019
+ER  - 

@@ -1,0 +1,116 @@
+{
+  "crossref": {
+    "iScience2025": {
+      "doi": "10.1016/j.isci.2025.112222",
+      "title": "Optical multilayer thin film structure inverse design: From optimization to deep learning",
+      "journal": "iScience",
+      "year": 2025,
+      "volume": "28",
+      "issue": "4",
+      "pages": "112222",
+      "authors_short": "Ma Taigao, Ma Mingqian, Guo L. Jay",
+      "type": "journal-article"
+    },
+    "Peurifoy2018": {
+      "doi": "10.1126/sciadv.aar4206",
+      "title": "Nanophotonic particle simulation and inverse design using artificial neural networks",
+      "journal": "Science Advances",
+      "year": 2018,
+      "volume": "4",
+      "issue": "6",
+      "pages": "eaar4206",
+      "authors_short": "Peurifoy John, Shen Yichen, Jing Li et al.",
+      "type": "journal-article"
+    },
+    "Liu2018": {
+      "doi": "10.1021/acsphotonics.7b01377",
+      "title": "Training Deep Neural Networks for the Inverse Design of Nanophotonic Structures",
+      "journal": "ACS Photonics",
+      "year": 2018,
+      "volume": "5",
+      "issue": "4",
+      "pages": "1365-1369",
+      "authors_short": "Liu Dianjing, Tan Yixuan, Khoram Erfan et al.",
+      "type": "journal-article"
+    },
+    "Malkiel2018": {
+      "doi": "10.1038/s41377-018-0060-7",
+      "title": "Plasmonic nanostructure design and characterization via Deep Learning",
+      "journal": "Light: Science &amp; Applications",
+      "year": 2018,
+      "volume": "7",
+      "issue": "1",
+      "pages": "60",
+      "authors_short": "Malkiel Itzik, Mrejen Michael, Nagler Achiya et al.",
+      "type": "journal-article"
+    },
+    "OptoGPT2024": {
+      "doi": "10.29026/oea.2024.240062",
+      "title": "OptoGPT: A foundation model for inverse design in optical multilayer thin film structures",
+      "journal": "Opto-Electronic Advances",
+      "year": 2024,
+      "volume": "7",
+      "issue": "7",
+      "pages": "240062",
+      "authors_short": "Ma Taigao, Wang Haozhu, Guo L. Jay",
+      "type": "journal-article"
+    },
+    "Meng2024": {
+      "doi": "10.3390/photonics11100964",
+      "title": "Inverse Design of Reflectionless Thin-Film Multilayers with Optical Absorption Utilizing Tandem Neural Network",
+      "journal": "Photonics",
+      "year": 2024,
+      "volume": "11",
+      "issue": "10",
+      "pages": "964",
+      "authors_short": "Swe Su Kalayar, Noh Heeso",
+      "type": "journal-article"
+    },
+    "Sullivan1996": {
+      "doi": "10.1364/ao.35.005484",
+      "title": "Implementation of a numerical needle method for thin-film design",
+      "journal": "Applied Optics",
+      "year": 1996,
+      "volume": "35",
+      "issue": "28",
+      "pages": "5484",
+      "authors_short": "Sullivan Brian T., Dobrowolski J. A.",
+      "type": "journal-article"
+    },
+    "NumPy2020": {
+      "doi": "10.1038/s41586-020-2649-2",
+      "title": "Array programming with NumPy",
+      "journal": "Nature",
+      "year": 2020,
+      "volume": "585",
+      "issue": "7825",
+      "pages": "357-362",
+      "authors_short": "Harris Charles R., Millman K. Jarrod, van der Walt Stéfan J. et al.",
+      "type": "journal-article"
+    }
+  },
+  "arxiv": {
+    "Hestness2017": {
+      "arxiv": "1712.00409",
+      "title": "arXiv Query: search_query=&amp;id_list=1712.00409&amp;start=0&amp;max_results=10",
+      "authors": [
+        "Joel Hestness",
+        "Sharan Narang",
+        "Newsha Ardalani",
+        "Gregory Diamos"
+      ],
+      "year": "2017"
+    },
+    "PyTorch2019": {
+      "arxiv": "1912.01703",
+      "title": "arXiv Query: search_query=&amp;id_list=1912.01703&amp;start=0&amp;max_results=10",
+      "authors": [
+        "Adam Paszke",
+        "Sam Gross",
+        "Francisco Massa",
+        "Adam Lerer"
+      ],
+      "year": "2019"
+    }
+  }
+}
