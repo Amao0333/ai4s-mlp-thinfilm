@@ -3,3 +3,7 @@ __pycache__/
 .ipynb_checkpoints/
 *.tmp
 node_modules/
+
+# 审查/调试期产生的临时图（下划线前缀）
+_*.png
+_*.jpg
