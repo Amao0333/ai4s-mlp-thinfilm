@@ -21,8 +21,7 @@ SEED = int(STUDENT_ID[-6:])                       # 303003
 DESIGN_SEED = SEED + 1                            # 303004
 LAMBDA_TARGET = 450 + 10 * (N_LAST2 % 31)         # 450 + 30 = 480 nm
 
-# 推送后把下面这行改成真实仓库地址，重新运行 build_values.py 与 build_docx.py 即可
-REPO_URL = "https://github.com/USERNAME/REPOSITORY"
+REPO_URL = "https://github.com/Amao0333/ai4s-mlp-thinfilm"
 
 # ---------------------------------------------------------------- 光学模型
 N_INCIDENT = 1.00      # Air

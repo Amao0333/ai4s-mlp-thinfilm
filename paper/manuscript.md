@@ -246,7 +246,7 @@ MLP 对"膜厚—光谱"映射的学习效果总体良好：测试集 R² = 0.99
 
 本研究所用数据由本文 TMM 代码生成。全部源代码、训练与筛选脚本、环境依赖及复现说明见仓库：
 
-https://github.com/USERNAME/REPOSITORY
+https://github.com/Amao0333/ai4s-mlp-thinfilm
 
 README 记录了个人参数 λ_target = 480 nm、seed = 303003、design_seed = 303004，
 以及环境配置、数据生成、模型训练、结果复现与筛选步骤；论文全部数值与图件均由该仓库脚本生成。
