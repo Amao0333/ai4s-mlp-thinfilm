@@ -20,10 +20,20 @@ from plotstyle import C_GREEN, C_LABEL, C_MLP, C_ORANGE, C_TMM, save
 g = json.loads((P.RES_DIR / "capacity_size_grid.json").read_text(encoding="utf-8"))
 fits = g["power_law_per_capacity"]
 
+BOUND = json.loads((P.RES_DIR / "physical_bound.json").read_text(encoding="utf-8"))["R_bound"]
+
+
+def _fmt_param(n):
+    """参数量按量级写成 2.4×10³ 形式（从结果文件读，不在图里写死）。"""
+    import math
+    e = int(math.floor(math.log10(n)))
+    return f"{n / 10 ** e:.1f}\\times10^{{{e}}}"
+
+
 STYLE = [
-    ("small", "小容量 2.4×10³", C_ORANGE, "s"),
-    ("base", "基准 2.8×10⁴", C_TMM, "o"),
-    ("large", "大容量 1.1×10⁵", C_GREEN, "^"),
+    ("small", "小容量", C_ORANGE, "s"),
+    ("base", "基准", C_TMM, "o"),
+    ("large", "大容量", C_GREEN, "^"),
 ]
 
 fig, ax = plt.subplots(figsize=(5.33, 2.35))
@@ -33,8 +43,9 @@ for name, label, color, marker in STYLE:
     N = np.array([float(pts[str(n)]["n_train"]) for n in g["sizes"]])
     M = np.array([pts[str(n)]["test_mse"] for n in g["sizes"]])
     a = fits[name]["alpha"]
+    npar = g["grid"][name]["n_param"]
     ax.plot(N, M, marker + "-", color=color, ms=3.4, lw=1.3,
-            label=f"{label}  ($\\alpha$ = {a:.2f})")
+            label=f"{label} ${_fmt_param(npar)}$  ($\\alpha$ = {a:.2f})")
 
 # α = 1 的参考斜率
 xr = np.array([500.0, 4000.0])

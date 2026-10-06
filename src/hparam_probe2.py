@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""长程训练预算探测。"""
+"""长程训练预算探测。（超参数选择时期的探索脚本，不产出结果文件、不属于论文复现链，保留以备追溯）"""
 from __future__ import annotations
 
 import time

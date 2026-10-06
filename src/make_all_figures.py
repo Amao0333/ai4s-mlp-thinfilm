@@ -7,6 +7,7 @@ import importlib
 MODULES = [
     "fig_workflow", "fig_model_data", "fig_arch", "fig_training",
     "fig_prediction", "fig_datasize", "fig_design", "fig_failure",
+    "fig_capacity",
 ]
 
 

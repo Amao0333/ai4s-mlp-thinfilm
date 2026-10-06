@@ -5,10 +5,15 @@
 """
 from __future__ import annotations
 
+import json
+
 import matplotlib.pyplot as plt
 
 import params as P
 from plotstyle import arrow, panel_frame, panel_label, rbox, save
+
+# 物理上限从结果文件读，不在图里写死
+R_BOUND = json.loads((P.RES_DIR / "physical_bound.json").read_text(encoding="utf-8"))["R_bound"]
 
 fig, ax = plt.subplots(figsize=(5.33, 2.52))
 ax.set_xlim(0, 1)
@@ -44,7 +49,7 @@ panel_frame(ax, 0.615, 0.285, 0.988, 0.575)
 panel_label(ax, 0.631, 0.562, "d")
 ax.text(0.800, 0.520, "校验与性能参照", ha="center", va="center", fontsize=7.6)
 rbox(ax, 0.640, 0.382, 0.325, 0.098, "TMM 三级校核", "neutral", fs=7.0)
-rbox(ax, 0.640, 0.305, 0.325, 0.062, "物理上限 0.6589", "hl", fs=7.0)
+rbox(ax, 0.640, 0.305, 0.325, 0.062, f"物理上限 {R_BOUND:.4f}", "hl", fs=7.0)
 
 # ---------------- 面板间连线 ----------------
 arrow(ax, (0.600, 0.750), (0.613, 0.750))

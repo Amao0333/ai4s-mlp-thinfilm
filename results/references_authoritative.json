@@ -196,7 +196,7 @@
     "container": "Applied Optics",
     "volume": "35",
     "issue": "28",
-    "pages": "5484",
+    "pages": "5484-5492",
     "year": 1996,
     "authors": [
       "Brian T. Sullivan",
@@ -205,6 +205,7 @@
     "type": "journal-article",
     "publisher": "Optica Publishing Group",
     "url": "https://doi.org/10.1364/ao.35.005484",
+    "pages_note": "Optica 出版社页面标注 pp. 5484-5492 (1996)；Crossref 记录仅含起始页 5484",
     "key": "Sullivan1996",
     "requested_type": "journal-article",
     "identifier": "10.1364/AO.35.005484"

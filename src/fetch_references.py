@@ -38,10 +38,31 @@ SPEC = [
 ]
 
 
-def _get(url, timeout=45):
-    req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "application/json"})
-    with urllib.request.urlopen(req, timeout=timeout) as r:
-        return json.loads(r.read().decode("utf-8"))
+def _get(url, timeout=45, tries=4):
+    """带退避重试：arXiv/Crossref 在连续请求时会返回 429。"""
+    last = None
+    for i in range(tries):
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "application/json"})
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                return json.loads(r.read().decode("utf-8"))
+        except Exception as e:
+            last = e
+            if "429" in str(e) or "timed out" in str(e).lower():
+                time.sleep(6.0 * (i + 1))   # arXiv 要求请求间隔不小于 3 秒
+                continue
+            raise
+    raise last
+
+
+# Crossref 个别记录只登记起始页，而出版社页面给出完整范围。
+# 逐条人工核对后在此补全，并登记可复核来源，不做任何推测。
+PAGES_FIX = {
+    "Sullivan1996": (
+        "5484-5492",
+        "Optica 出版社页面标注 pp. 5484-5492 (1996)；Crossref 记录仅含起始页 5484",
+    ),
+}
 
 
 def _get_text(url, timeout=45):
@@ -226,6 +247,7 @@ def main():
                 except Exception as e:
                     rec["douban_error"] = str(e)[:120]
             elif ident.startswith("arXiv:"):
+                time.sleep(3.0)   # arXiv API 的礼貌间隔
                 rec = arxiv(ident.split(":", 1)[1])
                 if typ == "conference-paper":
                     rec["type"] = "conference-paper"
@@ -240,6 +262,10 @@ def main():
             else:
                 rec = crossref(ident)
                 rec["type"] = "journal-article"
+                if key in PAGES_FIX:
+                    pages, why = PAGES_FIX[key]
+                    rec["pages"] = pages
+                    rec["pages_note"] = why
         except Exception as e:
             rec = {"error": f"{type(e).__name__}: {e}", "identifier": ident}
         rec["key"] = key
